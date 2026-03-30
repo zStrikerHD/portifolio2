@@ -1,11 +1,11 @@
-import Header from "./components/Header";
+import Router from "./Router.tsx";
 import { GlobalStyles } from "./style";
 
 const App = () => (
   <>
     <GlobalStyles />
-    <Header />
+    <Router />
   </>
-)
+);
 
 export default App;
