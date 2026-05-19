@@ -42,7 +42,7 @@ type MeshLike = {
 };
 
 type PointsLike = {
-  rotation: { y: number };
+  rotation: { x: number; y: number; z: number };
   geometry: Disposable;
   material: Disposable;
 };
