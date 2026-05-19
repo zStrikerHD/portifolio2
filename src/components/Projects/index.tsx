@@ -23,16 +23,24 @@ type GitHubRepo = {
 
 const profileLinkStyle = {
   color: "#fa6b58",
-  fontSize: "0.98rem",
+  fontFamily: "'Space Grotesk', sans-serif",
+  fontSize: "0.95rem",
   fontWeight: 600,
+  letterSpacing: "0.06em",
   textDecoration: "none",
   width: "fit-content",
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "0.4rem",
+  transition: "opacity 0.3s ease",
 } as const;
 
 const metaStyle = {
-  color: "rgba(214, 221, 242, 0.68)",
-  fontSize: "0.8rem",
-  letterSpacing: "0.08em",
+  color: "rgba(214, 221, 242, 0.6)",
+  fontFamily: "'Space Grotesk', sans-serif",
+  fontSize: "0.78rem",
+  fontWeight: 500,
+  letterSpacing: "0.1em",
   lineHeight: 1.6,
   textTransform: "uppercase",
 } as const;
@@ -56,47 +64,36 @@ const Projects = () => {
           "https://api.github.com/users/zStrikerHD/repos?sort=updated&per_page=6",
         );
 
-        if (!response.ok) {
-          throw new Error("Falha ao carregar repositorios");
-        }
+        if (!response.ok) throw new Error("Falha ao carregar repositórios");
 
         const data = (await response.json()) as GitHubRepo[];
-
-        if (!cancelled) {
-          setRepos(data);
-          setStatus("success");
-        }
+        if (!cancelled) { setRepos(data); setStatus("success"); }
       } catch {
-        if (!cancelled) {
-          setStatus("error");
-        }
+        if (!cancelled) setStatus("error");
       }
     };
 
     loadRepos();
-
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
   return (
     <Portifolio
       accent="#fa2a12"
-      description="Projetos reais puxados diretamente do GitHub publico, mostrando repertorio tecnico, frequencia de atualizacao e os links para explorar o codigo."
-      label="Projects"
-      note="Integracao com o GitHub publico: os repositorios abaixo sao carregados da conta zStrikerHD em tempo real pela API do GitHub."
+      description="Repositórios públicos carregados em tempo real do GitHub. Projetos que vão de plataformas SaaS (G.A Love Line), agendamento de barbearia, restaurante digital com API, até interfaces de vendas em C# com MySQL."
+      label="Projetos"
+      note="Os repositórios abaixo são carregados da conta zStrikerHD via API do GitHub. Para projetos privados e detalhes completos, entre em contato."
       title="Projetos"
     >
       <a href="https://github.com/zStrikerHD" rel="noreferrer" style={profileLinkStyle} target="_blank">
-        Ver perfil completo no GitHub
+        Ver perfil completo no GitHub →
       </a>
 
       {status === "loading" ? (
         <InfoCard $accent="#fa2a12">
-          <InfoTitle>Carregando repositorios</InfoTitle>
+          <InfoTitle>Carregando repositórios</InfoTitle>
           <InfoText>
-            Buscando os projetos publicados no GitHub para montar esta secao.
+            Buscando os projetos publicados no GitHub para montar esta seção.
           </InfoText>
         </InfoCard>
       ) : null}
@@ -105,7 +102,7 @@ const Projects = () => {
         <InfoCard $accent="#fa2a12">
           <InfoTitle>Falha ao carregar</InfoTitle>
           <InfoText>
-            Nao foi possivel carregar os repositorios agora. Mesmo assim, voce pode acessar o perfil direto no GitHub.
+            Não foi possível carregar os repositórios agora. Mesmo assim, você pode acessar o perfil direto no GitHub.
           </InfoText>
         </InfoCard>
       ) : null}
@@ -121,7 +118,7 @@ const Projects = () => {
                 Atualizado em {new Date(repo.updated_at).toLocaleDateString("pt-BR")}
               </div>
               <InfoText>
-                {repo.description || "Repositorio publico sem descricao preenchida no GitHub."}
+                {repo.description || "Repositório público sem descrição preenchida no GitHub."}
               </InfoText>
               <PillRow>
                 <Pill $accent="#fa2a12">
@@ -131,7 +128,7 @@ const Projects = () => {
               </PillRow>
               <div style={linkRowStyle}>
                 <ContactLink $accent="#fa2a12" href={repo.html_url} rel="noreferrer" target="_blank">
-                  Codigo
+                  Código
                 </ContactLink>
                 {repo.homepage ? (
                   <ContactLink $accent="#fa2a12" href={repo.homepage} rel="noreferrer" target="_blank">

@@ -4,10 +4,12 @@ import {
   AmbientGlow,
   BackLink,
   ContentFrame,
+  CosmicRing,
   Description,
   Eyebrow,
   HeaderBlock,
   HeroPanel,
+  NebulaLayer,
   PageShell,
   TopBar,
   Title,
@@ -31,7 +33,9 @@ const Portifolio = ({
   title,
 }: PortifolioProps) => (
   <PageShell $accent={accent}>
+    <NebulaLayer $accent={accent} />
     <AmbientGlow $accent={accent} />
+    <CosmicRing $accent={accent} />
     <ContentFrame $accent={accent}>
       <TopBar>
         <BackLink as={Link} to="/">

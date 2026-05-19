@@ -13,22 +13,23 @@ import {
   Textarea,
 } from "../Portifolio/styled";
 
-const EMAIL = "giovani_sanchez08@hotmail.com";
-const PHONE = "14996264003";
+const EMAIL = "sanchezgiovani045@gmail.com";
+const PHONE_1 = "14996264003";
+const PHONE_2 = "11915927534";
 
 const Contact = () => (
   <Portifolio
     accent="#0afaeb"
-    description="Uma pagina de contato nao precisa ser neutra. Ela pode fechar a experiencia com a mesma clareza visual e a mesma assinatura da entrada."
-    label="Contact"
-    note="Se quiser falar comigo, voce pode mandar mensagem pelo formulario abaixo, abrir seu e-mail direto ou me chamar por telefone."
+    description="Se quiser falar sobre um projeto, uma oportunidade ou apenas trocar uma ideia, pode me chamar por qualquer um dos canais abaixo. Bariri/SP, disponível para mudança."
+    label="Contato"
+    note="Desenvolvedor Full Stack Java disponível para propostas de trabalho remoto ou presencial. Resposta rápida por e-mail ou telefone."
     title="Contato"
   >
     <SplitGrid>
       <FormCard $accent="#0afaeb">
         <InfoTitle>Enviar mensagem</InfoTitle>
         <InfoText>
-          Este formulario abre o seu cliente de e-mail com os dados preenchidos.
+          Este formulário abre o seu cliente de e-mail com os dados preenchidos.
         </InfoText>
 
         <ContactForm
@@ -69,7 +70,7 @@ const Contact = () => (
       <InfoCard $accent="#0afaeb">
         <InfoTitle>Email direto</InfoTitle>
         <InfoText>
-          Se preferir, pode me chamar sem passar pelo formulario.
+          Se preferir, pode me chamar sem passar pelo formulário.
         </InfoText>
         <ContactLink $accent="#0afaeb" href={`mailto:${EMAIL}`}>
           {EMAIL}
@@ -79,10 +80,33 @@ const Contact = () => (
       <InfoCard $accent="#0afaeb">
         <InfoTitle>Telefone</InfoTitle>
         <InfoText>
-          Tambem disponivel para contato rapido por chamada ou mensagem.
+          Disponível para contato rápido por chamada ou mensagem.
         </InfoText>
-        <ContactLink $accent="#0afaeb" href={`tel:+55${PHONE}`}>
-          14 99626-4003
+        <ContactLink $accent="#0afaeb" href={`tel:+55${PHONE_1}`}>
+          (14) 99626-4003
+        </ContactLink>
+        <ContactLink $accent="#0afaeb" href={`tel:+55${PHONE_2}`}>
+          (11) 91592-7534
+        </ContactLink>
+      </InfoCard>
+
+      <InfoCard $accent="#0afaeb">
+        <InfoTitle>LinkedIn</InfoTitle>
+        <InfoText>
+          Conecte-se comigo para acompanhar minha trajetória profissional.
+        </InfoText>
+        <ContactLink $accent="#0afaeb" href="https://linkedin.com/in/giovani-g-sanchez" rel="noreferrer" target="_blank">
+          Giovani G. Sanchez
+        </ContactLink>
+      </InfoCard>
+
+      <InfoCard $accent="#0afaeb">
+        <InfoTitle>GitHub</InfoTitle>
+        <InfoText>
+          Repositórios públicos com código-fonte dos projetos.
+        </InfoText>
+        <ContactLink $accent="#0afaeb" href="https://github.com/zStrikerHD" rel="noreferrer" target="_blank">
+          github.com/zStrikerHD
         </ContactLink>
       </InfoCard>
     </SplitGrid>

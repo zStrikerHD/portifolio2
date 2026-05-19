@@ -6,6 +6,7 @@ import {
   subtitleStyle,
   titleStyle,
   titleWrapStyle,
+  instructionStyle,
 } from "./style";
 
 type HeaderSection = {
@@ -15,75 +16,51 @@ type HeaderSection = {
   title: string;
 };
 
-type Disposable = {
-  dispose: () => void;
-};
-
+type Disposable = { dispose: () => void };
 type TextureLike = Disposable;
 
 type CameraLike = {
   aspect: number;
-  position: {
-    z: number;
-    set: (x: number, y: number, z: number) => void;
-  };
+  position: { x: number; y: number; z: number; set: (x: number, y: number, z: number) => void };
+  lookAt: (x: number, y: number, z: number) => void;
   updateProjectionMatrix: () => void;
 };
 
 type RendererLike = {
   domElement: HTMLCanvasElement;
-  setPixelRatio: (value: number) => void;
-  setSize: (width: number, height: number) => void;
-  render: (scene: unknown, camera: CameraLike) => void;
+  setPixelRatio: (v: number) => void;
+  setSize: (w: number, h: number) => void;
+  render: (s: unknown, c: CameraLike) => void;
   dispose: () => void;
 };
 
 type MeshLike = {
-  position: {
-    x: number;
-    y: number;
-    z: number;
-  };
-  rotation: {
-    x: number;
-    y: number;
-  };
-  scale: {
-    set: (x: number, y: number, z: number) => void;
-  };
+  position: { x: number; y: number; z: number };
+  rotation: { x: number; y: number };
+  scale: { set: (x: number, y: number, z: number) => void };
+  material: { emissiveIntensity?: number };
 };
 
 type PointsLike = {
-  rotation: {
-    y: number;
-  };
+  rotation: { y: number };
   geometry: Disposable;
   material: Disposable;
 };
 
-type PositionAttributeLike = {
-  array: Float32Array;
-  needsUpdate: boolean;
-};
+type PositionAttributeLike = { array: Float32Array; needsUpdate: boolean };
 
 type BufferGeometryLike = Disposable & {
   computeVertexNormals: () => void;
-  getAttribute: (name: string) => PositionAttributeLike;
-  setAttribute: (name: string, attribute: unknown) => void;
+  getAttribute: (n: string) => PositionAttributeLike;
+  setAttribute: (n: string, a: unknown) => void;
 };
 
-type RaycastIntersectionLike = {
-  object: MeshLike;
-};
-
+type RaycastIntersectionLike = { object: MeshLike };
 type RaycasterLike = {
-  intersectObjects: (objects: MeshLike[]) => RaycastIntersectionLike[];
-  setFromCamera: (pointer: Vector2Like, camera: CameraLike) => void;
+  intersectObjects: (o: MeshLike[]) => RaycastIntersectionLike[];
+  setFromCamera: (p: Vector2Like, c: CameraLike) => void;
 };
-
-type Vector2Like = {
-  set: (x: number, y: number) => void;
-};
+type Vector2Like = { set: (x: number, y: number) => void };
 
 type SphereEntry = {
   basePositions: Float32Array;
@@ -95,157 +72,62 @@ type SphereEntry = {
   sectionLabel: string;
   sectionPath: string;
   sectionTitle: string;
+  accentHex: number;
 };
 
 type ThreeModule = {
-  AmbientLight: new (color: number, intensity: number) => unknown;
-  BufferAttribute: new (array: Float32Array, itemSize: number) => unknown;
+  AmbientLight: new (c: number, i: number) => unknown;
+  BufferAttribute: new (a: Float32Array, s: number) => unknown;
   BufferGeometry: new () => BufferGeometryLike;
-  CanvasTexture: new (canvas: HTMLCanvasElement) => TextureLike;
-  Color: new (value: number) => unknown;
-  DirectionalLight: new (color: number, intensity: number) => {
-    position: {
-      set: (x: number, y: number, z: number) => void;
-    };
-  };
-  Fog: new (color: number, near: number, far: number) => unknown;
-  Mesh: new (geometry: Disposable, material: Disposable) => MeshLike;
-  MeshStandardMaterial: new (options: {
-    color: number;
-    emissive: number;
-    metalness: number;
-    roughness: number;
-  }) => Disposable;
-  PerspectiveCamera: new (
-    fov: number,
-    aspect: number,
-    near: number,
-    far: number,
-  ) => CameraLike;
-  PointLight: new (color: number, intensity: number, distance: number) => {
-    position: {
-      set: (x: number, y: number, z: number) => void;
-    };
-  };
-  Points: new (
-    geometry: BufferGeometryLike,
-    material: Disposable,
-  ) => PointsLike;
-  PointsMaterial: new (options: {
-    alphaTest?: number;
-    color: number;
-    depthWrite?: boolean;
-    map?: TextureLike;
-    size: number;
-    transparent?: boolean;
-  }) => Disposable;
+  CanvasTexture: new (c: HTMLCanvasElement) => TextureLike;
+  Color: new (v: number) => unknown;
+  DirectionalLight: new (c: number, i: number) => { position: { set: (x: number, y: number, z: number) => void } };
+  Fog: new (c: number, n: number, f: number) => unknown;
+  Mesh: new (g: Disposable, m: Disposable) => MeshLike;
+  MeshStandardMaterial: new (o: Record<string, number>) => Disposable & { emissiveIntensity: number };
+  PerspectiveCamera: new (f: number, a: number, n: number, fa: number) => CameraLike;
+  PointLight: new (c: number, i: number, d: number) => { position: { set: (x: number, y: number, z: number) => void } };
+  Points: new (g: BufferGeometryLike, m: Disposable) => PointsLike;
+  PointsMaterial: new (o: Record<string, unknown>) => Disposable;
   Raycaster: new () => RaycasterLike;
-  Scene: new () => {
-    add: (object: unknown) => void;
-    background: unknown;
-    fog: unknown;
-  };
-  SphereGeometry: new (
-    radius: number,
-    widthSegments: number,
-    heightSegments: number,
-  ) => BufferGeometryLike;
+  Scene: new () => { add: (o: unknown) => void; background: unknown; fog: unknown };
+  SphereGeometry: new (r: number, w: number, h: number) => BufferGeometryLike;
   Vector2: new (x?: number, y?: number) => Vector2Like;
-  WebGLRenderer: new (options: { antialias: boolean }) => RendererLike;
+  WebGLRenderer: new (o: { antialias: boolean; alpha?: boolean }) => RendererLike;
 };
 
 declare global {
-  interface Window {
-    THREE?: ThreeModule;
-  }
+  interface Window { THREE?: ThreeModule }
 }
 
-const THREE_CDN =
-  "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+const THREE_CDN = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
 
 const SPHERE_MATERIALS = [
-  {
-    color: 0xd9dee5,
-    emissive: 0x1f232a,
-    metalness: 0.95,
-    roughness: 0.08,
-  },
-  {
-    color: 0xfa2a12,
-    emissive: 0x5c130d,
-    metalness: 0.68,
-    roughness: 0.18,
-  },
-  {
-    color: 0xfa0ce2,
-    emissive: 0x550a4e,
-    metalness: 0.72,
-    roughness: 0.16,
-  },
-  {
-    color: 0x2000fa,
-    emissive: 0x151052,
-    metalness: 0.78,
-    roughness: 0.14,
-  },
-  {
-    color: 0x0afaeb,
-    emissive: 0x0d4d52,
-    metalness: 0.74,
-    roughness: 0.16,
-  },
+  { color: 0xd9dee5, emissive: 0x2a3040, metalness: 0.92, roughness: 0.06 },
+  { color: 0xfa2a12, emissive: 0x6c1a10, metalness: 0.65, roughness: 0.14 },
+  { color: 0xfa0ce2, emissive: 0x60105a, metalness: 0.70, roughness: 0.12 },
+  { color: 0x3520ff, emissive: 0x1a1060, metalness: 0.75, roughness: 0.10 },
+  { color: 0x0afaeb, emissive: 0x106058, metalness: 0.72, roughness: 0.12 },
 ] as const;
 
 const loadThree = () =>
   new Promise<ThreeModule>((resolve, reject) => {
-    if (window.THREE) {
-      resolve(window.THREE);
+    if (window.THREE) { resolve(window.THREE); return; }
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${THREE_CDN}"]`);
+    if (existing) {
+      existing.addEventListener("load", () => { window.THREE ? resolve(window.THREE) : reject(new Error("THREE missing")); }, { once: true });
+      existing.addEventListener("error", () => reject(new Error("Failed to load three.js")), { once: true });
       return;
     }
-
-    const existingScript = document.querySelector<HTMLScriptElement>(
-      `script[src="${THREE_CDN}"]`,
-    );
-
-    if (existingScript) {
-      existingScript.addEventListener(
-        "load",
-        () => {
-          if (window.THREE) {
-            resolve(window.THREE);
-            return;
-          }
-
-          reject(new Error("three.js carregou sem expor window.THREE"));
-        },
-        { once: true },
-      );
-      existingScript.addEventListener(
-        "error",
-        () => reject(new Error("Falha ao carregar three.js")),
-        { once: true },
-      );
-      return;
-    }
-
     const script = document.createElement("script");
     script.src = THREE_CDN;
     script.async = true;
-    script.onload = () => {
-      if (window.THREE) {
-        resolve(window.THREE);
-        return;
-      }
-
-      reject(new Error("three.js carregou sem expor window.THREE"));
-    };
-    script.onerror = () => reject(new Error("Falha ao carregar three.js"));
+    script.onload = () => { window.THREE ? resolve(window.THREE) : reject(new Error("THREE missing")); };
+    script.onerror = () => reject(new Error("Failed to load three.js"));
     document.body.appendChild(script);
   });
 
-type HeaderProps = {
-  sections: readonly HeaderSection[];
-};
+type HeaderProps = { sections: readonly HeaderSection[] };
 
 const Header = ({ sections }: HeaderProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -253,38 +135,28 @@ const Header = ({ sections }: HeaderProps) => {
 
   useEffect(() => {
     const container = containerRef.current;
-
-    if (!container) {
-      return;
-    }
+    if (!container) return;
 
     let animationFrameId = 0;
-    let resetTransitionTimeoutId = 0;
+    let resetTimeoutId = 0;
     let renderer: RendererLike | undefined;
     let geometries: BufferGeometryLike[] = [];
     let materials: Disposable[] = [];
     let starTexture: TextureLike | undefined;
     let stars: PointsLike | undefined;
+    let stars2: PointsLike | undefined;
     let disposed = false;
 
     const setupScene = async () => {
       const THREE = await loadThree();
-
-      if (disposed) {
-        return;
-      }
+      if (disposed) return;
 
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x02040a);
-      scene.fog = new THREE.Fog(0x02040a, 10, 30);
+      scene.background = new THREE.Color(0x00010d);
+      scene.fog = new THREE.Fog(0x00010d, 14, 42);
 
-      const camera = new THREE.PerspectiveCamera(
-        60,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000,
-      );
-      camera.position.set(0, 0, 11);
+      const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(0, 0, 12);
 
       const renderInstance = new THREE.WebGLRenderer({ antialias: true });
       renderer = renderInstance;
@@ -292,234 +164,212 @@ const Header = ({ sections }: HeaderProps) => {
       renderInstance.setSize(window.innerWidth, window.innerHeight);
       container.appendChild(renderInstance.domElement);
 
-      const sphereCount = Math.min(
-        sections.length,
-        SPHERE_MATERIALS.length,
-      );
-      const ringRadius = 4.6;
+      const sphereCount = Math.min(sections.length, SPHERE_MATERIALS.length);
+      const ringRadius = 4.8;
       const sphereEntries: SphereEntry[] = [];
-      const meshToSphereIndex = new Map<MeshLike, number>();
-      const sphereMaterials = SPHERE_MATERIALS.slice(0, sphereCount).map(
-        (materialConfig) => new THREE.MeshStandardMaterial(materialConfig),
-      );
+      const meshToIdx = new Map<MeshLike, number>();
+      const sphereMaterials = SPHERE_MATERIALS.slice(0, sphereCount).map(c => new THREE.MeshStandardMaterial(c));
       materials = sphereMaterials;
+
       const labelLayer = document.createElement("div");
-      labelLayer.style.position = "absolute";
-      labelLayer.style.inset = "0";
-      labelLayer.style.pointerEvents = "none";
-      labelLayer.style.zIndex = "1";
+      Object.assign(labelLayer.style, { position: "absolute", inset: "0", pointerEvents: "none", zIndex: "1" });
       container.appendChild(labelLayer);
 
-      for (let index = 0; index < sphereCount; index += 1) {
-        const geometryInstance = new THREE.SphereGeometry(1.05, 96, 96);
-        const positionAttribute = geometryInstance.getAttribute("position");
-        const basePositions = new Float32Array(positionAttribute.array);
-        const mesh = new THREE.Mesh(geometryInstance, sphereMaterials[index]);
-        const labelElement = document.createElement("div");
-        const section = sections[index];
+      for (let i = 0; i < sphereCount; i++) {
+        const geo = new THREE.SphereGeometry(1.1, 128, 128);
+        const posAttr = geo.getAttribute("position");
+        const basePos = new Float32Array(posAttr.array);
+        const mesh = new THREE.Mesh(geo, sphereMaterials[i]);
+        const label = document.createElement("div");
+        const sec = sections[i];
 
-        Object.assign(labelElement.style, sphereLabelStyle);
-        labelElement.textContent = section.title;
-        labelLayer.appendChild(labelElement);
+        Object.assign(label.style, sphereLabelStyle);
+        label.textContent = sec.title;
+        labelLayer.appendChild(label);
 
         scene.add(mesh);
         sphereEntries.push({
-          basePositions,
-          geometry: geometryInstance,
-          labelElement,
-          mesh,
-          phase: index * 0.9,
-          positionAttribute,
-          sectionLabel: section.label,
-          sectionPath: section.path,
-          sectionTitle: section.title,
+          basePositions: basePos, geometry: geo, labelElement: label, mesh, phase: i * 0.9,
+          positionAttribute: posAttr, sectionLabel: sec.label, sectionPath: sec.path,
+          sectionTitle: sec.title, accentHex: SPHERE_MATERIALS[i].color,
         });
-        meshToSphereIndex.set(mesh, index);
+        meshToIdx.set(mesh, i);
       }
+      geometries = sphereEntries.map(e => e.geometry);
 
-      geometries = sphereEntries.map((entry) => entry.geometry);
+      // Lighting — cosmic deep space palette
+      scene.add(new THREE.AmbientLight(0xb0c0ff, 0.35));
+      const key = new THREE.DirectionalLight(0xe0e8ff, 3.2);
+      key.position.set(5, 7, 10);
+      scene.add(key);
+      const fill = new THREE.PointLight(0x4040cc, 7, 32);
+      fill.position.set(-6, -5, 3);
+      scene.add(fill);
+      const rim = new THREE.PointLight(0x8060ff, 16, 40);
+      rim.position.set(-7, -1, -6);
+      scene.add(rim);
+      // Nebula tint from below
+      const nebula = new THREE.PointLight(0x200080, 5, 30);
+      nebula.position.set(0, -8, -4);
+      scene.add(nebula);
 
-      const ambientLight = new THREE.AmbientLight(0xe9eef7, 0.4);
-      scene.add(ambientLight);
+      // Dynamic accent light that follows front sphere
+      const accentLight = new THREE.PointLight(0xffffff, 0, 20);
+      accentLight.position.set(0, 0, 6);
+      scene.add(accentLight);
 
-      const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
-      keyLight.position.set(5, 6, 9);
-      scene.add(keyLight);
+      // Stars - Layer 1
+      const makeStars = (count: number, spread: number, size: number) => {
+        const geo = new THREE.BufferGeometry();
+        const pos = new Float32Array(count * 3);
+        for (let i = 0; i < count * 3; i += 3) {
+          pos[i] = (Math.random() - 0.5) * spread;
+          pos[i + 1] = (Math.random() - 0.5) * spread;
+          pos[i + 2] = (Math.random() - 0.5) * spread;
+        }
+        geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+        const canvas = document.createElement("canvas");
+        canvas.width = 64; canvas.height = 64;
+        const ctx = canvas.getContext("2d")!;
+        const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+        grad.addColorStop(0, "rgba(255,255,255,1)");
+        grad.addColorStop(0.6, "rgba(255,255,255,0.9)");
+        grad.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(32, 32, 32, 0, Math.PI * 2); ctx.fill();
+        const tex = new THREE.CanvasTexture(canvas);
+        const mat = new THREE.PointsMaterial({ alphaTest: 0.06, color: 0xffffff, depthWrite: false, map: tex, size, transparent: true });
+        return { points: new THREE.Points(geo, mat), texture: tex };
+      };
 
-      const fillLight = new THREE.PointLight(0x6e7c93, 5, 26);
-      fillLight.position.set(-5, -4, 2);
-      scene.add(fillLight);
+      const s1 = makeStars(4500, 70, 0.028);
+      const s2 = makeStars(2000, 80, 0.048);
+      const s3 = makeStars(800,  55, 0.07);
+      stars = s1.points; stars2 = s2.points;
+      starTexture = s1.texture;
+      scene.add(s1.points); scene.add(s2.points); scene.add(s3.points);
 
-      const rimLight = new THREE.PointLight(0xf7fbff, 12, 30);
-      rimLight.position.set(-6, -1, -5);
-      scene.add(rimLight);
-
-      const starGeometry = new THREE.BufferGeometry();
-      const starCount = 2500;
-      const starPositions = new Float32Array(starCount * 3);
-
-      for (let index = 0; index < starCount * 3; index += 3) {
-        starPositions[index] = (Math.random() - 0.5) * 45;
-        starPositions[index + 1] = (Math.random() - 0.5) * 45;
-        starPositions[index + 2] = (Math.random() - 0.5) * 45;
-      }
-
-      starGeometry.setAttribute(
-        "position",
-        new THREE.BufferAttribute(starPositions, 3),
-      );
-
-      const starCanvas = document.createElement("canvas");
-      starCanvas.width = 64;
-      starCanvas.height = 64;
-      const starContext = starCanvas.getContext("2d");
-
-      if (!starContext) {
-        throw new Error("Nao foi possivel criar o contexto das estrelas");
-      }
-
-      const starGradient = starContext.createRadialGradient(32, 32, 0, 32, 32, 32);
-      starGradient.addColorStop(0, "rgba(255,255,255,1)");
-      starGradient.addColorStop(0.7, "rgba(255,255,255,0.95)");
-      starGradient.addColorStop(1, "rgba(255,255,255,0)");
-      starContext.fillStyle = starGradient;
-      starContext.beginPath();
-      starContext.arc(32, 32, 32, 0, Math.PI * 2);
-      starContext.fill();
-
-      starTexture = new THREE.CanvasTexture(starCanvas);
-      const starMaterial = new THREE.PointsMaterial({
-        alphaTest: 0.08,
-        color: 0xffffff,
-        depthWrite: false,
-        map: starTexture,
-        size: 0.035,
-        transparent: true,
-      });
-
-      const starField = new THREE.Points(starGeometry, starMaterial);
-      stars = starField;
-      scene.add(starField);
-
+      // Raycaster
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
 
-      const getClickedSphereIndex = (
-        clientX: number,
-        clientY: number,
-      ) => {
+      const getClickedIdx = (cx: number, cy: number) => {
         const rect = renderInstance.domElement.getBoundingClientRect();
-        pointer.set(
-          ((clientX - rect.left) / rect.width) * 2 - 1,
-          -(((clientY - rect.top) / rect.height) * 2 - 1),
-        );
+        pointer.set(((cx - rect.left) / rect.width) * 2 - 1, -(((cy - rect.top) / rect.height) * 2 - 1));
         raycaster.setFromCamera(pointer, camera);
-
-        const intersections = raycaster.intersectObjects(
-          sphereEntries.map((entry) => entry.mesh),
-        );
-
-        if (intersections.length === 0) {
-          return null;
-        }
-
-        const hitIndex = meshToSphereIndex.get(intersections[0].object);
-        return hitIndex ?? null;
+        const hits = raycaster.intersectObjects(sphereEntries.map(e => e.mesh));
+        if (!hits.length) return null;
+        return meshToIdx.get(hits[0].object) ?? null;
       };
 
       const handleResize = () => {
-        if (!renderer) {
-          return;
-        }
-
+        if (!renderer) return;
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
       };
 
-      let currentRotation = Math.PI / 2;
-      let targetRotation = Math.PI / 2;
+      // State
+      let currentRot = Math.PI / 2;
+      let targetRot = Math.PI / 2;
+      let velocity = 0;
       let isDragging = false;
       let totalDragX = 0;
-      let pointerStartX = 0;
-      let pointerStartY = 0;
-      let draggedDistance = 0;
-      let currentFrontSphereIndex = 0;
-      let selectedSphereIndex: number | null = null;
-      let zoomStartedAt = 0;
-      let hasNavigated = false;
-      const rotationStep = (Math.PI * 2) / sphereEntries.length;
+      let pStartX = 0;
+      let pStartY = 0;
+      let dragDist = 0;
+      let frontIdx = 0;
+      let selectedIdx: number | null = null;
+      let zoomStart = 0;
+      let hasNav = false;
+      const rotStep = (Math.PI * 2) / sphereEntries.length;
 
-      const beginZoom = (sphereIndex: number) => {
-        if (selectedSphereIndex !== null) {
-          return;
-        }
+      // Mouse parallax
+      let mouseX = 0;
+      let mouseY = 0;
 
-        selectedSphereIndex = sphereIndex;
-        zoomStartedAt = performance.now();
-        hasNavigated = false;
-
-        window.clearTimeout(resetTransitionTimeoutId);
-        resetTransitionTimeoutId = window.setTimeout(() => {
-          selectedSphereIndex = null;
-          hasNavigated = false;
-          camera.position.set(0, 0, 11);
+      const beginZoom = (idx: number) => {
+        if (selectedIdx !== null) return;
+        selectedIdx = idx;
+        zoomStart = performance.now();
+        hasNav = false;
+        window.clearTimeout(resetTimeoutId);
+        resetTimeoutId = window.setTimeout(() => {
+          selectedIdx = null;
+          hasNav = false;
         }, 1700);
       };
 
-      const handleMouseDown = (event: MouseEvent) => {
-        if (event.button !== 0 || selectedSphereIndex !== null) {
-          return;
-        }
-
+      const handleMouseDown = (e: MouseEvent) => {
+        if (e.button !== 0 || selectedIdx !== null) return;
         isDragging = true;
-        totalDragX = 0;
-        pointerStartX = event.clientX;
-        pointerStartY = event.clientY;
-        draggedDistance = 0;
+        totalDragX = 0; pStartX = e.clientX; pStartY = e.clientY; dragDist = 0;
         container.style.cursor = "grabbing";
       };
 
-      const handleMouseMove = (event: MouseEvent) => {
-        if (!isDragging || selectedSphereIndex !== null) {
-          return;
-        }
-
-        const deltaX = event.clientX - pointerStartX;
-        const deltaY = event.clientY - pointerStartY;
-        totalDragX = deltaX;
-        draggedDistance = Math.max(
-          draggedDistance,
-          Math.abs(deltaX) + Math.abs(deltaY),
-        );
+      const handleMouseMove = (e: MouseEvent) => {
+        // Parallax
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        if (!isDragging || selectedIdx !== null) return;
+        const dx = e.clientX - pStartX;
+        const dy = e.clientY - pStartY;
+        totalDragX = dx;
+        dragDist = Math.max(dragDist, Math.abs(dx) + Math.abs(dy));
       };
 
-      const handleMouseUp = (event: MouseEvent) => {
-        if (!isDragging) {
-          return;
-        }
-
+      const handleMouseUp = (e: MouseEvent) => {
+        if (!isDragging) return;
         isDragging = false;
-        container.style.cursor = selectedSphereIndex === null ? "grab" : "default";
-
-        if (draggedDistance < 8 && selectedSphereIndex === null) {
-          const sphereIndex = getClickedSphereIndex(event.clientX, event.clientY);
-
-          if (
-            sphereIndex !== null &&
-            sphereIndex === currentFrontSphereIndex
-          ) {
-            beginZoom(sphereIndex);
-          }
+        container.style.cursor = selectedIdx === null ? "grab" : "default";
+        if (dragDist < 8 && selectedIdx === null) {
+          const idx = getClickedIdx(e.clientX, e.clientY);
+          if (idx !== null && idx === frontIdx) beginZoom(idx);
           return;
         }
-
         if (Math.abs(totalDragX) >= 24) {
-          if (totalDragX < 0) {
-            targetRotation += rotationStep;
-          } else {
-            targetRotation -= rotationStep;
-          }
+          velocity = totalDragX < 0 ? rotStep : -rotStep;
+          targetRot += velocity;
+        }
+      };
+
+      // Touch support
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchDragDist = 0;
+
+      const handleTouchStart = (e: TouchEvent) => {
+        if (selectedIdx !== null || !e.touches.length) return;
+        isDragging = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        pStartX = touchStartX;
+        totalDragX = 0;
+        touchDragDist = 0;
+      };
+
+      const handleTouchMove = (e: TouchEvent) => {
+        if (!isDragging || selectedIdx !== null || !e.touches.length) return;
+        e.preventDefault();
+        const dx = e.touches[0].clientX - pStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+        totalDragX = dx;
+        touchDragDist = Math.max(touchDragDist, Math.abs(dx) + Math.abs(dy));
+        mouseX = (e.touches[0].clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.touches[0].clientY / window.innerHeight - 0.5) * 2;
+      };
+
+      const handleTouchEnd = (e: TouchEvent) => {
+        if (!isDragging) return;
+        isDragging = false;
+        if (touchDragDist < 12 && selectedIdx === null && e.changedTouches.length) {
+          const t = e.changedTouches[0];
+          const idx = getClickedIdx(t.clientX, t.clientY);
+          if (idx !== null && idx === frontIdx) beginZoom(idx);
+          return;
+        }
+        if (Math.abs(totalDragX) >= 24) {
+          targetRot += totalDragX < 0 ? rotStep : -rotStep;
         }
       };
 
@@ -527,115 +377,111 @@ const Header = ({ sections }: HeaderProps) => {
       window.addEventListener("mouseup", handleMouseUp);
       container.addEventListener("mousemove", handleMouseMove);
       container.addEventListener("mousedown", handleMouseDown);
+      container.addEventListener("touchstart", handleTouchStart, { passive: true });
+      container.addEventListener("touchmove", handleTouchMove, { passive: false });
+      container.addEventListener("touchend", handleTouchEnd);
       container.style.cursor = "grab";
 
       const animate = () => {
         animationFrameId = window.requestAnimationFrame(animate);
         const now = performance.now();
-        const time = now * 0.001;
-        const zoomProgress =
-          selectedSphereIndex === null
-            ? 0
-            : Math.min((now - zoomStartedAt) / 700, 1);
-        const easedZoom =
-          1 - Math.pow(1 - zoomProgress, 3);
+        const t = now * 0.001;
+        const zoomP = selectedIdx === null ? 0 : Math.min((now - zoomStart) / 700, 1);
+        const easeZ = 1 - Math.pow(1 - zoomP, 3);
 
-        currentRotation += (targetRotation - currentRotation) * 0.08;
-        camera.position.set(0, 0, 11 - easedZoom * 3.8);
+        // Smooth rotation with slight inertia
+        currentRot += (targetRot - currentRot) * 0.07;
 
-        let frontSphereIndex = -1;
-        let frontSphereZ = Number.NEGATIVE_INFINITY;
+        // Camera parallax
+        const camTargetX = mouseX * 0.4;
+        const camTargetY = -mouseY * 0.3;
+        const camZ = 12 - easeZ * 4.2;
+        camera.position.x += (camTargetX - camera.position.x) * 0.04;
+        camera.position.y += (camTargetY - camera.position.y) * 0.04;
+        camera.position.z = camZ;
+        camera.lookAt(0, 0, 0);
 
-        for (let index = 0; index < sphereEntries.length; index += 1) {
-          const entry = sphereEntries[index];
-          const angle =
-            (index / sphereEntries.length) * Math.PI * 2 + currentRotation;
-          const reliefArray = entry.positionAttribute.array;
-          const driftY = Math.cos(time * 0.9 + entry.phase) * 0.18;
-          const stretchX = 1 + Math.sin(time * 1.4 + entry.phase) * 0.035;
-          const stretchY = 1 + Math.cos(time * 1.1 + entry.phase) * 0.055;
-          const stretchZ = 1 + Math.sin(time * 1.7 + 0.8 + entry.phase) * 0.04;
+        let fIdx = -1;
+        let fZ = -Infinity;
 
-          for (let vertexIndex = 0; vertexIndex < reliefArray.length; vertexIndex += 3) {
-            const baseX = entry.basePositions[vertexIndex];
-            const baseY = entry.basePositions[vertexIndex + 1];
-            const baseZ = entry.basePositions[vertexIndex + 2];
-            const waveA =
-              Math.sin(baseY * 3.8 + time * 1.7 + entry.phase) * 0.075 +
-              Math.cos(baseZ * 4.4 - time * 1.2 + entry.phase) * 0.045;
-            const waveB =
-              Math.sin((baseX + baseZ) * 5.2 - time * 1.45 + entry.phase) * 0.035;
-            const relief = 1 + waveA + waveB;
+        for (let i = 0; i < sphereEntries.length; i++) {
+          const e = sphereEntries[i];
+          const angle = (i / sphereEntries.length) * Math.PI * 2 + currentRot;
+          const arr = e.positionAttribute.array;
+          const driftY = Math.cos(t * 0.8 + e.phase) * 0.2;
+          const sx = 1 + Math.sin(t * 1.3 + e.phase) * 0.04;
+          const sy = 1 + Math.cos(t * 1.0 + e.phase) * 0.06;
+          const sz = 1 + Math.sin(t * 1.6 + 0.8 + e.phase) * 0.045;
 
-            reliefArray[vertexIndex] = baseX * relief;
-            reliefArray[vertexIndex + 1] = baseY * relief;
-            reliefArray[vertexIndex + 2] = baseZ * relief;
+          // Enhanced organic deformation
+          for (let v = 0; v < arr.length; v += 3) {
+            const bx = e.basePositions[v];
+            const by = e.basePositions[v + 1];
+            const bz = e.basePositions[v + 2];
+            const w1 = Math.sin(by * 3.5 + t * 1.6 + e.phase) * 0.08 +
+                       Math.cos(bz * 4.0 - t * 1.1 + e.phase) * 0.05;
+            const w2 = Math.sin((bx + bz) * 5.0 - t * 1.35 + e.phase) * 0.04;
+            const w3 = Math.cos(bx * 2.8 + by * 3.2 + t * 0.9 + e.phase) * 0.025;
+            const relief = 1 + w1 + w2 + w3;
+            arr[v] = bx * relief;
+            arr[v + 1] = by * relief;
+            arr[v + 2] = bz * relief;
           }
 
-          const baseX = Math.cos(angle) * ringRadius;
-          const baseZ = Math.sin(angle) * ringRadius;
-          const isSelected = index === selectedSphereIndex;
-          const targetX = 0;
-          const targetY = 0;
-          const targetZ = 4.6;
-          const scaleBoost = isSelected ? 1 + easedZoom * 5.6 : 1 - easedZoom * 0.35;
+          const bX = Math.cos(angle) * ringRadius;
+          const bZ = Math.sin(angle) * ringRadius;
+          const isSel = i === selectedIdx;
+          const scaleB = isSel ? 1 + easeZ * 5.6 : 1 - easeZ * 0.35;
 
-          entry.mesh.position.x = isSelected
-            ? baseX + (targetX - baseX) * easedZoom
-            : baseX;
-          entry.mesh.position.y = isSelected
-            ? driftY + (targetY - driftY) * easedZoom
-            : driftY;
-          entry.mesh.position.z = isSelected
-            ? baseZ + (targetZ - baseZ) * easedZoom
-            : baseZ;
-          entry.mesh.rotation.x = Math.sin(time * 0.45 + entry.phase) * 0.18;
-          entry.mesh.rotation.y += isSelected ? 0.004 : 0.0021;
-          entry.mesh.scale.set(
-            stretchX * scaleBoost,
-            stretchY * scaleBoost,
-            stretchZ * scaleBoost,
-          );
+          e.mesh.position.x = isSel ? bX + (0 - bX) * easeZ : bX;
+          e.mesh.position.y = isSel ? driftY + (0 - driftY) * easeZ : driftY;
+          e.mesh.position.z = isSel ? bZ + (5 - bZ) * easeZ : bZ;
+          e.mesh.rotation.x = Math.sin(t * 0.4 + e.phase) * 0.2;
+          e.mesh.rotation.y += isSel ? 0.005 : 0.0025;
+          e.mesh.scale.set(sx * scaleB, sy * scaleB, sz * scaleB);
 
-          if (entry.mesh.position.z > frontSphereZ) {
-            frontSphereZ = entry.mesh.position.z;
-            frontSphereIndex = index;
-          }
+          if (e.mesh.position.z > fZ) { fZ = e.mesh.position.z; fIdx = i; }
 
-          entry.positionAttribute.needsUpdate = true;
-          entry.geometry.computeVertexNormals();
+          e.positionAttribute.needsUpdate = true;
+          e.geometry.computeVertexNormals();
         }
 
-        currentFrontSphereIndex = frontSphereIndex;
+        frontIdx = fIdx;
 
-        for (let index = 0; index < sphereEntries.length; index += 1) {
-          const entry = sphereEntries[index];
-
-          if (index !== frontSphereIndex) {
-            entry.labelElement.style.opacity = "0";
-            continue;
-          }
-
-          const projectedX =
-            (entry.mesh.position.x / camera.position.z) * window.innerHeight * 0.52;
-          const projectedY =
-            (entry.mesh.position.y / camera.position.z) * window.innerHeight * 0.52;
-
-          entry.labelElement.style.opacity = "1";
-          entry.labelElement.style.transform = `translate(-50%, -50%) translate(calc(50vw + ${projectedX}px), calc(50vh + ${projectedY - 104}px)) scale(1)`;
+        // Update accent light to follow front sphere
+        if (fIdx >= 0) {
+          const fe = sphereEntries[fIdx];
+          (accentLight as unknown as { color: { setHex: (h: number) => void } }).color.setHex(fe.accentHex);
+          (accentLight as unknown as { intensity: number }).intensity = 4 + Math.sin(t * 2) * 1;
+          (accentLight as unknown as { position: { x: number; y: number; z: number } }).position.x = fe.mesh.position.x;
+          (accentLight as unknown as { position: { x: number; y: number; z: number } }).position.y = fe.mesh.position.y;
+          (accentLight as unknown as { position: { x: number; y: number; z: number } }).position.z = fe.mesh.position.z + 2;
         }
 
-        if (
-          selectedSphereIndex !== null &&
-          !hasNavigated &&
-          easedZoom >= 0.82
-        ) {
-          const targetPath = sphereEntries[selectedSphereIndex].sectionPath;
-          navigate(targetPath);
-          hasNavigated = true;
+        // Labels
+        for (let i = 0; i < sphereEntries.length; i++) {
+          const e = sphereEntries[i];
+          if (i !== fIdx) { e.labelElement.style.opacity = "0"; continue; }
+          const px = (e.mesh.position.x / camera.position.z) * window.innerHeight * 0.5;
+          const py = (e.mesh.position.y / camera.position.z) * window.innerHeight * 0.5;
+          e.labelElement.style.opacity = "1";
+          e.labelElement.style.transform = `translate(-50%, -50%) translate(calc(50vw + ${px}px), calc(50vh + ${py - 110}px))`;
         }
 
-        starField.rotation.y += 0.00035;
+        // Navigation trigger
+        if (selectedIdx !== null && !hasNav && easeZ >= 0.82) {
+          navigate(sphereEntries[selectedIdx].sectionPath);
+          hasNav = true;
+        }
+
+        // Stars rotation — slow galactic drift
+        s1.points.rotation.y += 0.00025;
+        s1.points.rotation.x += 0.00008;
+        s2.points.rotation.y -= 0.00012;
+        s2.points.rotation.z += 0.00005;
+        s3.points.rotation.y += 0.00018;
+        s3.points.rotation.x -= 0.00006;
+
         renderInstance.render(scene, camera);
       };
 
@@ -646,44 +492,40 @@ const Header = ({ sections }: HeaderProps) => {
         window.removeEventListener("mouseup", handleMouseUp);
         container.removeEventListener("mousemove", handleMouseMove);
         container.removeEventListener("mousedown", handleMouseDown);
-        window.clearTimeout(resetTransitionTimeoutId);
+        container.removeEventListener("touchstart", handleTouchStart);
+        container.removeEventListener("touchmove", handleTouchMove);
+        container.removeEventListener("touchend", handleTouchEnd);
+        window.clearTimeout(resetTimeoutId);
         labelLayer.remove();
       };
     };
 
-    let removeResizeListener: (() => void) | undefined;
-
-    setupScene()
-      .then((cleanup) => {
-        removeResizeListener = cleanup;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    let cleanup: (() => void) | undefined;
+    setupScene().then(c => { cleanup = c; }).catch(console.error);
 
     return () => {
       disposed = true;
       window.cancelAnimationFrame(animationFrameId);
-      window.clearTimeout(resetTransitionTimeoutId);
-      removeResizeListener?.();
-      geometries.forEach((entry) => entry.dispose());
-      materials.forEach((entry) => entry.dispose());
-      stars?.geometry?.dispose?.();
-      stars?.material?.dispose?.();
+      window.clearTimeout(resetTimeoutId);
+      cleanup?.();
+      geometries.forEach(g => g.dispose());
+      materials.forEach(m => m.dispose());
+      stars?.geometry?.dispose?.(); stars?.material?.dispose?.();
+      stars2?.geometry?.dispose?.(); stars2?.material?.dispose?.();
       starTexture?.dispose?.();
       renderer?.dispose?.();
-
-      if (renderer?.domElement && container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-      }
+      if (renderer?.domElement && container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
     };
   }, [navigate, sections]);
 
   return (
     <div ref={containerRef} style={containerStyle}>
       <div style={titleWrapStyle}>
-        <div style={titleStyle}>PORTIFOLIO</div>
+        <div style={titleStyle}>PORTFOLIO</div>
         <div style={subtitleStyle}>GIOVANI SANCHEZ</div>
+      </div>
+      <div style={instructionStyle}>
+        arrastar para girar · clique para entrar
       </div>
     </div>
   );
