@@ -2,17 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 
 /* ── Animations ── */
 
-const wave1 = keyframes`
-  0%   { transform: translateX(0) scaleY(1); }
-  50%  { transform: translateX(-4%) scaleY(1.04); }
-  100% { transform: translateX(0) scaleY(1); }
-`;
 
-const wave2 = keyframes`
-  0%   { transform: translateX(0) scaleY(1); }
-  50%  { transform: translateX(3%) scaleY(0.96); }
-  100% { transform: translateX(0) scaleY(1); }
-`;
 
 const pingPulse = keyframes`
   0%, 100% { transform: scale(1); opacity: 0.5; }
