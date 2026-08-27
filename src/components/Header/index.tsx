@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   sphereLabelStyle,
   containerStyle,
@@ -132,6 +132,7 @@ type HeaderProps = { sections: readonly HeaderSection[] };
 const Header = ({ sections }: HeaderProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -270,8 +271,14 @@ const Header = ({ sections }: HeaderProps) => {
       };
 
       // State
-      let currentRot = Math.PI / 2;
-      let targetRot = Math.PI / 2;
+      const fromPath = (location.state as { from?: string } | null)?.from;
+      const initialActiveIdx = sections.findIndex(s => s.path === fromPath);
+      const startRot = initialActiveIdx !== -1 
+        ? Math.PI / 2 - (initialActiveIdx / sections.length) * Math.PI * 2
+        : Math.PI / 2;
+
+      let currentRot = startRot;
+      let targetRot = startRot;
       let velocity = 0;
       let isDragging = false;
       let totalDragX = 0;
@@ -516,7 +523,7 @@ const Header = ({ sections }: HeaderProps) => {
       renderer?.dispose?.();
       if (renderer?.domElement && container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
     };
-  }, [navigate, sections]);
+  }, [navigate, sections, location]);
 
   return (
     <div ref={containerRef} style={containerStyle}>

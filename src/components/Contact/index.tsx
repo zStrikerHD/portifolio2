@@ -1,116 +1,122 @@
-import Portifolio from "../Portifolio";
+import { Link } from "react-router-dom";
 import {
+  BackLink,
+  CommCard,
+  CommText,
+  CommTitle,
   ContactForm,
   ContactLink,
+  ContentFrame,
+  Description,
+  Eyebrow,
   FieldGroup,
   FormCard,
-  InfoCard,
-  InfoText,
-  InfoTitle,
+  HeaderBlock,
+  HeroPanel,
   Input,
+  PageShell,
+  SendButton,
   SplitGrid,
-  SubmitButton,
   Textarea,
-} from "../Portifolio/styled";
+  Title,
+  TopBar,
+} from "./styled";
 
 const EMAIL = "sanchezgiovani045@gmail.com";
 const PHONE_1 = "14996264003";
 const PHONE_2 = "11915927534";
 
 const Contact = () => (
-  <Portifolio
-    accent="#0afaeb"
-    description="Se quiser falar sobre um projeto, uma oportunidade ou apenas trocar uma ideia, pode me chamar por qualquer um dos canais abaixo. Bariri/SP, disponível para mudança."
-    label="Contato"
-    note="Desenvolvedor Full Stack Java disponível para propostas de trabalho remoto ou presencial. Resposta rápida por e-mail ou telefone."
-    title="Contato"
-  >
-    <SplitGrid>
-      <FormCard $accent="#0afaeb">
-        <InfoTitle>Enviar mensagem</InfoTitle>
-        <InfoText>
-          Este formulário abre o seu cliente de e-mail com os dados preenchidos.
-        </InfoText>
+  <PageShell>
+    <ContentFrame>
+      <TopBar>
+        <BackLink as={Link} to="/" state={{ from: "/contact" }}>Voltar</BackLink>
+      </TopBar>
 
-        <ContactForm
-          action={`mailto:${EMAIL}`}
-          encType="text/plain"
-          method="post"
-        >
-          <FieldGroup>
-            Nome
-            <Input $accent="#0afaeb" name="Nome" placeholder="Seu nome" type="text" />
-          </FieldGroup>
+      <HeaderBlock>
+        <Eyebrow>Contato</Eyebrow>
+        <Title>Contato</Title>
+        <Description>
+          Se quiser falar sobre um projeto, uma oportunidade ou apenas trocar uma ideia, pode me chamar por qualquer um dos canais abaixo. Bariri/SP, disponível para mudança.
+        </Description>
+        <HeroPanel>
+          Desenvolvedor Full Stack Java disponível para propostas de trabalho remoto ou presencial. Resposta rápida por e-mail ou telefone.
+        </HeroPanel>
+      </HeaderBlock>
 
-          <FieldGroup>
-            Email
-            <Input
-              $accent="#0afaeb"
-              name="Email"
-              placeholder="seuemail@exemplo.com"
-              type="email"
-            />
-          </FieldGroup>
+      <SplitGrid>
+        <FormCard>
+          <CommTitle>Enviar mensagem</CommTitle>
+          <CommText>
+            Este formulário abre o seu cliente de e-mail com os dados preenchidos.
+          </CommText>
 
-          <FieldGroup>
-            Mensagem
-            <Textarea
-              $accent="#0afaeb"
-              name="Mensagem"
-              placeholder="Me conte sobre o projeto, prazo e objetivo."
-            />
-          </FieldGroup>
+          <ContactForm
+            action={`mailto:${EMAIL}`}
+            encType="text/plain"
+            method="post"
+          >
+            <FieldGroup>
+              Nome
+              <Input name="Nome" placeholder="Seu nome" type="text" />
+            </FieldGroup>
 
-          <SubmitButton $accent="#0afaeb" type="submit">
-            Enviar por email
-          </SubmitButton>
-        </ContactForm>
-      </FormCard>
+            <FieldGroup>
+              Email
+              <Input name="Email" placeholder="seuemail@exemplo.com" type="email" />
+            </FieldGroup>
 
-      <InfoCard $accent="#0afaeb">
-        <InfoTitle>Email direto</InfoTitle>
-        <InfoText>
-          Se preferir, pode me chamar sem passar pelo formulário.
-        </InfoText>
-        <ContactLink $accent="#0afaeb" href={`mailto:${EMAIL}`}>
-          {EMAIL}
-        </ContactLink>
-      </InfoCard>
+            <FieldGroup>
+              Mensagem
+              <Textarea
+                name="Mensagem"
+                placeholder="Me conte sobre o projeto, prazo e objetivo."
+              />
+            </FieldGroup>
 
-      <InfoCard $accent="#0afaeb">
-        <InfoTitle>Telefone</InfoTitle>
-        <InfoText>
-          Disponível para contato rápido por chamada ou mensagem.
-        </InfoText>
-        <ContactLink $accent="#0afaeb" href={`tel:+55${PHONE_1}`}>
-          (14) 99626-4003
-        </ContactLink>
-        <ContactLink $accent="#0afaeb" href={`tel:+55${PHONE_2}`}>
-          (11) 91592-7534
-        </ContactLink>
-      </InfoCard>
+            <SendButton type="submit">Enviar por e-mail</SendButton>
+          </ContactForm>
+        </FormCard>
 
-      <InfoCard $accent="#0afaeb">
-        <InfoTitle>LinkedIn</InfoTitle>
-        <InfoText>
-          Conecte-se comigo para acompanhar minha trajetória profissional.
-        </InfoText>
-        <ContactLink $accent="#0afaeb" href="https://linkedin.com/in/giovani-g-sanchez" rel="noreferrer" target="_blank">
-          Giovani G. Sanchez
-        </ContactLink>
-      </InfoCard>
+        <CommCard>
+          <CommTitle>Email direto</CommTitle>
+          <CommText>Se preferir, pode me chamar sem passar pelo formulário.</CommText>
+          <ContactLink href={`mailto:${EMAIL}`}>{EMAIL}</ContactLink>
+        </CommCard>
 
-      <InfoCard $accent="#0afaeb">
-        <InfoTitle>GitHub</InfoTitle>
-        <InfoText>
-          Repositórios públicos com código-fonte dos projetos.
-        </InfoText>
-        <ContactLink $accent="#0afaeb" href="https://github.com/zStrikerHD" rel="noreferrer" target="_blank">
-          github.com/zStrikerHD
-        </ContactLink>
-      </InfoCard>
-    </SplitGrid>
-  </Portifolio>
+        <CommCard>
+          <CommTitle>Telefone</CommTitle>
+          <CommText>Disponível para contato rápido por chamada ou mensagem.</CommText>
+          <ContactLink href={`tel:+55${PHONE_1}`}>(14) 99626-4003</ContactLink>
+          <ContactLink href={`tel:+55${PHONE_2}`}>(11) 91592-7534</ContactLink>
+        </CommCard>
+
+        <CommCard>
+          <CommTitle>LinkedIn</CommTitle>
+          <CommText>Conecte-se comigo para acompanhar minha trajetória profissional.</CommText>
+          <ContactLink
+            href="https://linkedin.com/in/giovani-g-sanchez"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Giovani G. Sanchez
+          </ContactLink>
+        </CommCard>
+
+        <CommCard>
+          <CommTitle>GitHub</CommTitle>
+          <CommText>Repositórios públicos com código-fonte dos projetos.</CommText>
+          <ContactLink
+            href="https://github.com/zStrikerHD"
+            rel="noreferrer"
+            target="_blank"
+          >
+            github.com/zStrikerHD
+          </ContactLink>
+        </CommCard>
+      </SplitGrid>
+    </ContentFrame>
+  </PageShell>
 );
 
 export default Contact;

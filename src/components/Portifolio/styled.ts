@@ -509,7 +509,6 @@ export const Pill = styled.span<{ $accent: string }>`
   }
 `;
 
-/* ── Contact / Form ── */
 
 export const SplitGrid = styled.div`
   display: grid;

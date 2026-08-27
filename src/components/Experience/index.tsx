@@ -1,10 +1,26 @@
-import Portifolio from "../Portifolio";
+import { Link } from "react-router-dom";
 import {
-  InfoCard,
-  InfoText,
-  InfoTitle,
-  SectionGrid,
-} from "../Portifolio/styled";
+  BackLink,
+  CardList,
+  CardMeta,
+  CardTitle,
+  ContentFrame,
+  Description,
+  Eyebrow,
+  HeaderBlock,
+  HeroPanel,
+  PageShell,
+  SectionLabel,
+  TimelineCard,
+  TimelineConnector,
+  TimelineDot,
+  TimelineItem,
+  TimeLine,
+  TimelineWrapper,
+  Title,
+  TopBar,
+  CardText,
+} from "./styled";
 
 const professionalExperience = [
   {
@@ -25,8 +41,6 @@ const professionalExperience = [
       "Responsável por vendas de valores acima de 180 mil mensais, representando mais de 50% da venda do time.",
       "Emissão de 20 a 30 pedidos diariamente, sendo reconhecido pela agilidade no atendimento.",
       "Operação de sistema interno de vendas e gestão de estoque, assegurando a precisão do inventário e a agilidade no fechamento de pedidos.",
-      "Apoio no treinamento de novos colaboradores e em fechamento de pedidos de outros vendedores quando necessário.",
-      "Desenvolvimento de comunicação clara e foco em resultados, competências aplicadas hoje na lógica de negócios.",
     ],
   },
   {
@@ -57,7 +71,7 @@ const relevantProjects = [
     details: [
       "Construção de um site Full Stack para agendamento de barbearia.",
       "Consumo de banco de dados projetado para facilitar a realização do agendamento de horários.",
-      "Utilizando Vite e Node, juntamente com MongoDB, uma aplicação completa para a facilitação tanto do barbeiro quanto do cliente, podendo ter mais de uma barbearia no mesmo site.",
+      "Utilizando Vite e Node, juntamente com MongoDB, uma aplicação completa para a facilitação tanto do barbeiro quanto do cliente.",
     ],
   },
   {
@@ -75,9 +89,9 @@ const relevantProjects = [
     role: "Prova Final de React | EBAC",
     period: "10/2025 – 12/2025",
     details: [
-      "Construção de um site de vendas para restaurante com foco em experiência do usuário (UX) e performance.",
-      "Consumo e exibição de dados através da integração com APIs externas para listagem de produtos e pedidos.",
-      "Gerenciamento de estado global da aplicação utilizando bibliotecas como Redux e estilização avançada com Sass.",
+      "Construção de um site de vendas para restaurante com foco em UX e performance.",
+      "Consumo de dados via APIs externas para listagem de produtos e pedidos.",
+      "Gerenciamento de estado global com Redux e estilização avançada com Sass.",
     ],
   },
   {
@@ -85,82 +99,86 @@ const relevantProjects = [
     role: "Trabalho de Conclusão de Curso (TCC) | Etec Jaú",
     period: "06/2024 – 12/2024",
     details: [
-      "Desenvolvimento de uma interface completa voltada para o setor comercial e automação de vendas.",
-      "Utilização da linguagem C# para a lógica do sistema e MySQL para a persistência e segurança dos dados.",
-      "Aplicação de conceitos de engenharia de software para garantir um fluxo de trabalho eficiente para o usuário final.",
+      "Desenvolvimento de interface completa para setor comercial e automação de vendas.",
+      "Linguagem C# para lógica do sistema e MySQL para persistência e segurança dos dados.",
+      "Aplicação de conceitos de engenharia de software para garantir fluxo de trabalho eficiente.",
     ],
   },
 ] as const;
 
-const metaStyle = {
-  color: "rgba(160, 175, 235, 0.55)",
-  fontFamily: "'Space Grotesk', sans-serif",
-  fontSize: "0.75rem",
-  fontWeight: 500,
-  letterSpacing: "0.12em",
-  lineHeight: 1.6,
-  textTransform: "uppercase",
-} as const;
-
-const listStyle = {
-  color: "rgba(180, 195, 240, 0.7)",
-  display: "grid",
-  gap: "0.6rem",
-  lineHeight: 1.78,
-  paddingLeft: "1.1rem",
-  fontSize: "0.9rem",
-} as const;
-
 const Experience = () => (
-  <Portifolio
-    accent="#fa0ce2"
-    description="Trajetória que combina experiência de campo, rotina operacional, contato direto com pessoas e projetos técnicos com foco real em sistema, produto e entrega."
-    label="Experiência"
-    note="Experiência profissional e projetos relevantes que conectam atendimento, operação, raciocínio lógico e construção de produtos digitais completos."
-    title="Experiência"
-  >
-    <InfoTitle>Experiência Profissional</InfoTitle>
-    <SectionGrid>
-      {professionalExperience.map((item) => (
-        <InfoCard $accent="#fa0ce2" key={item.title}>
-          <InfoTitle>{item.title}</InfoTitle>
-          <div style={metaStyle}>
-            {item.role}
-            <br />
-            {item.period}
-          </div>
-          <ul style={listStyle}>
-            {item.details.map((detail) => (
-              <li key={detail}>{detail}</li>
-            ))}
-          </ul>
-        </InfoCard>
-      ))}
-    </SectionGrid>
+  <PageShell>
+    <ContentFrame>
+      <TopBar>
+        <BackLink as={Link} to="/" state={{ from: "/experience" }}>Voltar</BackLink>
+      </TopBar>
 
-    <InfoTitle>Projetos Relevantes</InfoTitle>
-    <SectionGrid>
-      {relevantProjects.map((item) => (
-        <InfoCard $accent="#fa0ce2" key={item.title}>
-          <InfoTitle>{item.title}</InfoTitle>
-          <div style={metaStyle}>
-            {item.role}
-            <br />
-            {item.period}
-          </div>
-          <ul style={listStyle}>
-            {item.details.map((detail) => (
-              <li key={detail}>{detail}</li>
-            ))}
-          </ul>
-        </InfoCard>
-      ))}
-    </SectionGrid>
+      <HeaderBlock>
+        <Eyebrow>Experiência</Eyebrow>
+        <Title>Experiência</Title>
+        <Description>
+          Trajetória que combina experiência de campo, rotina operacional, contato direto com pessoas e projetos técnicos com foco real em sistema, produto e entrega.
+        </Description>
+        <HeroPanel>
+          Experiência profissional e projetos relevantes que conectam atendimento, operação, raciocínio lógico e construção de produtos digitais completos.
+        </HeroPanel>
+      </HeaderBlock>
 
-    <InfoText>
-      Essas experiências reforçam comunicação, análise, adaptação, foco em resultado e tradução de necessidades reais em fluxos de sistema mais consistentes.
-    </InfoText>
-  </Portifolio>
+      <div>
+        <SectionLabel>Experiência Profissional</SectionLabel>
+        <TimelineWrapper style={{ marginTop: "1.6rem" }}>
+          {professionalExperience.map((item, i) => (
+            <TimelineItem key={item.title}>
+              <TimeLine>
+                <TimelineDot />
+                {i < professionalExperience.length - 1 && <TimelineConnector />}
+              </TimeLine>
+              <TimelineCard>
+                <CardTitle>{item.title}</CardTitle>
+                <CardMeta>
+                  {item.role}<br />{item.period}
+                </CardMeta>
+                <CardList>
+                  {item.details.map((d) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </CardList>
+              </TimelineCard>
+            </TimelineItem>
+          ))}
+        </TimelineWrapper>
+      </div>
+
+      <div>
+        <SectionLabel>Projetos Relevantes</SectionLabel>
+        <TimelineWrapper style={{ marginTop: "1.6rem" }}>
+          {relevantProjects.map((item, i) => (
+            <TimelineItem key={item.title}>
+              <TimeLine>
+                <TimelineDot />
+                {i < relevantProjects.length - 1 && <TimelineConnector />}
+              </TimeLine>
+              <TimelineCard>
+                <CardTitle>{item.title}</CardTitle>
+                <CardMeta>
+                  {item.role}<br />{item.period}
+                </CardMeta>
+                <CardList>
+                  {item.details.map((d) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </CardList>
+              </TimelineCard>
+            </TimelineItem>
+          ))}
+        </TimelineWrapper>
+      </div>
+
+      <CardText>
+        Essas experiências reforçam comunicação, análise, adaptação, foco em resultado e tradução de necessidades reais em fluxos de sistema mais consistentes.
+      </CardText>
+    </ContentFrame>
+  </PageShell>
 );
 
 export default Experience;

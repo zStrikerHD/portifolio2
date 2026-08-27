@@ -1,12 +1,22 @@
-import Portifolio from "../Portifolio";
+import { Link } from "react-router-dom";
 import {
-  InfoCard,
-  InfoText,
-  InfoTitle,
-  Pill,
-  PillRow,
-  SectionGrid,
-} from "../Portifolio/styled";
+  BackLink,
+  Chip,
+  ChipRow,
+  ContentFrame,
+  Description,
+  Eyebrow,
+  HeaderBlock,
+  HeroPanel,
+  ModuleCard,
+  ModuleGrid,
+  ModuleText,
+  ModuleTitle,
+  PageShell,
+  SectionLabel,
+  Title,
+  TopBar,
+} from "./styled";
 
 const buckets = [
   {
@@ -52,29 +62,41 @@ const buckets = [
 ] as const;
 
 const Skills = () => (
-  <Portifolio
-    accent="#2000fa"
-    description="Competências técnicas organizadas por stack, com foco em desenvolvimento web full stack, back-end robusto, mobile, banco de dados, ferramentas de produtividade e infraestrutura cloud."
-    label="Habilidades"
-    note="Base técnica para construir interfaces, sistemas e experiências completas com consistência visual e implementação sólida. Inglês técnico focado em leitura de documentação e escrita de código."
-    title="Habilidades"
-  >
-    <SectionGrid>
-      {buckets.map((bucket) => (
-        <InfoCard $accent="#2000fa" key={bucket.title}>
-          <InfoTitle>{bucket.title}</InfoTitle>
-          <PillRow>
-            {bucket.items.map((item) => (
-              <Pill $accent="#2000fa" key={item}>
-                {item}
-              </Pill>
-            ))}
-          </PillRow>
-          <InfoText>{bucket.desc}</InfoText>
-        </InfoCard>
-      ))}
-    </SectionGrid>
-  </Portifolio>
+  <PageShell>
+    <ContentFrame>
+      <TopBar>
+        <BackLink as={Link} to="/" state={{ from: "/skills" }}>Voltar</BackLink>
+      </TopBar>
+
+      <HeaderBlock>
+        <Eyebrow>Habilidades</Eyebrow>
+        <Title>Habilidades</Title>
+        <Description>
+          Competências técnicas organizadas por stack, com foco em desenvolvimento web full stack, back-end robusto, mobile, banco de dados, ferramentas de produtividade e infraestrutura cloud.
+        </Description>
+        <HeroPanel>
+          Base técnica para construir interfaces, sistemas e experiências completas com consistência visual e implementação sólida. Inglês técnico focado em leitura de documentação e escrita de código.
+        </HeroPanel>
+      </HeaderBlock>
+
+      <div>
+        <SectionLabel>Módulos de Competência</SectionLabel>
+        <ModuleGrid style={{ marginTop: "1.2rem" }}>
+          {buckets.map((bucket) => (
+            <ModuleCard key={bucket.title}>
+              <ModuleTitle>{bucket.title}</ModuleTitle>
+              <ChipRow>
+                {bucket.items.map((item) => (
+                  <Chip key={item}>{item}</Chip>
+                ))}
+              </ChipRow>
+              <ModuleText>{bucket.desc}</ModuleText>
+            </ModuleCard>
+          ))}
+        </ModuleGrid>
+      </div>
+    </ContentFrame>
+  </PageShell>
 );
 
 export default Skills;

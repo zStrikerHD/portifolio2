@@ -1,12 +1,21 @@
-import Portifolio from "../Portifolio";
+import { Link } from "react-router-dom";
 import {
+  BackLink,
+  ContentFrame,
+  Description,
+  Eyebrow,
+  HeaderBlock,
+  HeroPanel,
   InfoCard,
   InfoText,
   InfoTitle,
+  PageShell,
   Pill,
   PillRow,
   SectionGrid,
-} from "../Portifolio/styled";
+  SectionLabel,
+  TopBar,
+} from "./styled";
 
 const aboutCards = [
   {
@@ -61,46 +70,70 @@ const tags = [
 ] as const;
 
 const Overview = () => (
-  <Portifolio
-    accent="#d9dee5"
-    description="Desenvolvedor Full Stack Java com formação pela EBAC e técnico em Desenvolvimento de Sistemas. Experiência em integração de sistemas, criação de APIs e construção de interfaces modernas. Bariri/SP, disponível para mudança."
-    label="Visão Geral"
-    note="Habilidades em HTML5, CSS3, JavaScript, React, Spring Boot, Hibernate, JPA, MySQL, PostgreSQL, MongoDB. Conhecimentos em Spring Security, C#, Vue.js, Angular, Jest. Noções de Kubernetes, cloud computing e microsserviços."
-    title="Giovani Sanchez"
-  >
-    <InfoTitle>Sobre</InfoTitle>
-    <SectionGrid>
-      {aboutCards.map((card) => (
-        <InfoCard $accent="#d9dee5" key={card.title}>
-          <InfoTitle>{card.title}</InfoTitle>
-          <InfoText>{card.text}</InfoText>
-        </InfoCard>
-      ))}
-    </SectionGrid>
+  <PageShell>
+    <ContentFrame>
+      <TopBar>
+        <BackLink as={Link} to="/" state={{ from: "/overview" }}>
+          Voltar
+        </BackLink>
+      </TopBar>
 
-    <InfoTitle>Formação Acadêmica</InfoTitle>
-    <SectionGrid>
-      {formation.map((item) => (
-        <InfoCard $accent="#d9dee5" key={item.title}>
-          <InfoTitle>{item.title}</InfoTitle>
-          <InfoText>{item.text}</InfoText>
-        </InfoCard>
-      ))}
-    </SectionGrid>
+      <HeaderBlock>
+        <Eyebrow>Visão Geral</Eyebrow>
+        <InfoTitle as="h1" style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
+          GIOVANI_SANCHEZ
+        </InfoTitle>
+        <Description>
+          Desenvolvedor Full Stack Java com formação pela EBAC e técnico em Desenvolvimento de Sistemas. Experiência em integração de sistemas, criação de APIs e construção de interfaces modernas. Bariri/SP, disponível para mudança.
+        </Description>
+        <HeroPanel>
+          Habilidades em HTML5, CSS3, JavaScript, React, Spring Boot, Hibernate, JPA, MySQL, PostgreSQL, MongoDB. Conhecimentos em Spring Security, C#, Vue.js, Angular, Jest. Noções de Kubernetes, cloud computing e microsserviços.
+        </HeroPanel>
+      </HeaderBlock>
 
-    <InfoTitle>Cursos Complementares</InfoTitle>
-    <PillRow>
-      {certifications.map((cert) => (
-        <Pill $accent="#d9dee5" key={cert}>{cert}</Pill>
-      ))}
-    </PillRow>
+      <div>
+        <SectionLabel>// Sobre</SectionLabel>
+        <SectionGrid style={{ marginTop: "1.2rem" }}>
+          {aboutCards.map((card) => (
+            <InfoCard key={card.title}>
+              <InfoTitle>{card.title}</InfoTitle>
+              <InfoText>{card.text}</InfoText>
+            </InfoCard>
+          ))}
+        </SectionGrid>
+      </div>
 
-    <PillRow>
-      {tags.map((tag) => (
-        <Pill $accent="#d9dee5" key={tag}>{tag}</Pill>
-      ))}
-    </PillRow>
-  </Portifolio>
+      <div>
+        <SectionLabel>// Formação Acadêmica</SectionLabel>
+        <SectionGrid style={{ marginTop: "1.2rem" }}>
+          {formation.map((item) => (
+            <InfoCard key={item.title}>
+              <InfoTitle>{item.title}</InfoTitle>
+              <InfoText>{item.text}</InfoText>
+            </InfoCard>
+          ))}
+        </SectionGrid>
+      </div>
+
+      <div>
+        <SectionLabel>// Cursos Complementares</SectionLabel>
+        <PillRow style={{ marginTop: "1rem" }}>
+          {certifications.map((cert) => (
+            <Pill key={cert}>{cert}</Pill>
+          ))}
+        </PillRow>
+      </div>
+
+      <div>
+        <SectionLabel>// Stack Principal</SectionLabel>
+        <PillRow style={{ marginTop: "1rem" }}>
+          {tags.map((tag) => (
+            <Pill key={tag}>{tag}</Pill>
+          ))}
+        </PillRow>
+      </div>
+    </ContentFrame>
+  </PageShell>
 );
 
 export default Overview;

@@ -1,11 +1,17 @@
-export const containerStyle = {
+import type { CSSProperties } from "react";
+
+/* ── Container ── */
+
+export const containerStyle: CSSProperties = {
   position: "relative",
   width: "100vw",
   height: "100vh",
   overflow: "hidden",
-} as const;
+};
 
-export const titleWrapStyle = {
+/* ── Title Block ── */
+
+export const titleWrapStyle: CSSProperties = {
   position: "absolute",
   top: "2.5rem",
   left: "50%",
@@ -13,62 +19,67 @@ export const titleWrapStyle = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "0.6rem",
+  gap: "0.55rem",
   pointerEvents: "none",
   zIndex: 2,
-} as const;
+};
 
-export const titleStyle = {
-  color: "rgba(160, 180, 255, 0.5)",
+export const titleStyle: CSSProperties = {
+  color: "rgba(140, 165, 255, 0.45)",
   fontFamily: "'Space Grotesk', sans-serif",
-  fontSize: "0.72rem",
-  fontWeight: 500,
-  letterSpacing: "0.7em",
+  fontSize: "0.65rem",
+  fontWeight: 600,
+  letterSpacing: "0.82em",
   textTransform: "uppercase",
-} as const;
+};
 
-export const subtitleStyle = {
+export const subtitleStyle: CSSProperties = {
   color: "#ffffff",
   fontFamily: "'Space Grotesk', sans-serif",
-  fontSize: "1.9rem",
-  fontWeight: 700,
-  letterSpacing: "0.22em",
+  fontSize: "1.75rem",
+  fontWeight: 800,
+  letterSpacing: "0.28em",
   textTransform: "uppercase",
-  background: "linear-gradient(135deg, #c8d6ff 0%, #8090cc 40%, #d0deff 80%, #ffffff 100%)",
+  background: "linear-gradient(135deg, #ffffff 0%, #c0ccff 30%, #8898ee 55%, #d8e0ff 80%, #ffffff 100%)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
-} as const;
+};
 
-export const sphereLabelStyle = {
-  color: "#cdd8ff",
+/* ── Sphere Labels ── */
+
+export const sphereLabelStyle: CSSProperties = {
+  color: "#d4dcff",
   fontFamily: "'Space Grotesk', sans-serif",
-  fontSize: "0.78rem",
-  fontWeight: 600,
+  fontSize: "0.72rem",
+  fontWeight: 700,
   left: "0",
-  letterSpacing: "0.28em",
+  letterSpacing: "0.34em",
   pointerEvents: "none",
   position: "absolute",
-  textShadow: "0 0 30px rgba(0, 10, 60, 0.98), 0 0 80px rgba(0, 0, 40, 0.8), 0 2px 6px rgba(0,0,0,0.9)",
+  textShadow:
+    "0 0 24px rgba(0, 5, 40, 0.99), 0 0 60px rgba(0, 0, 30, 0.88), 0 2px 8px rgba(0,0,0,0.95)",
   textTransform: "uppercase",
   top: "0",
   transform: "translate(-50%, -50%)",
   whiteSpace: "nowrap",
   transition: "opacity 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)",
-} as const;
+};
 
-export const instructionStyle = {
+/* ── Instruction ── */
+
+export const instructionStyle: CSSProperties = {
   position: "absolute",
   bottom: "2.5rem",
   left: "50%",
   transform: "translateX(-50%)",
-  color: "rgba(130, 150, 220, 0.28)",
-  fontFamily: "'Inter', sans-serif",
-  fontSize: "0.68rem",
-  fontWeight: 400,
-  letterSpacing: "0.42em",
+  color: "rgba(100, 130, 210, 0.22)",
+  fontFamily: "'Space Grotesk', sans-serif",
+  fontSize: "0.62rem",
+  fontWeight: 500,
+  letterSpacing: "0.5em",
   textTransform: "uppercase",
   pointerEvents: "none",
   zIndex: 2,
   whiteSpace: "nowrap",
-} as const;
+};

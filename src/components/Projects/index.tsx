@@ -1,58 +1,41 @@
 import { useEffect, useState } from "react";
-import Portifolio from "../Portifolio";
+import { Link } from "react-router-dom";
 import {
-  ContactLink,
-  InfoCard,
-  InfoText,
-  InfoTitle,
-  Pill,
-  PillRow,
-  SectionGrid,
-} from "../Portifolio/styled";
+  BackLink,
+  Badge,
+  BadgeRow,
+  ContentFrame,
+  Description,
+  Eyebrow,
+  HeaderBlock,
+  HeroPanel,
+  LinkRow,
+  PageShell,
+  ProfileLink,
+  RepoCard,
+  RepoDesc,
+  RepoGrid,
+  RepoLink,
+  RepoMeta,
+  RepoTitle,
+  SectionLabel,
+  StatusCard,
+  Title,
+  TopBar,
+} from "./styled";
 
-type GitHubRepo = {
-  description: string | null;
-  homepage: string | null;
-  html_url: string;
-  id: number;
-  language: string | null;
+type PinnedRepo = {
+  author: string;
   name: string;
-  stargazers_count: number;
-  updated_at: string;
+  description: string;
+  language: string;
+  languageColor: string;
+  stars: number;
+  forks: number;
 };
 
-const profileLinkStyle = {
-  color: "#fa6b58",
-  fontFamily: "'Space Grotesk', sans-serif",
-  fontSize: "0.95rem",
-  fontWeight: 600,
-  letterSpacing: "0.06em",
-  textDecoration: "none",
-  width: "fit-content",
-  display: "inline-flex",
-  alignItems: "center",
-  gap: "0.4rem",
-  transition: "opacity 0.3s ease",
-} as const;
-
-const metaStyle = {
-  color: "rgba(214, 221, 242, 0.6)",
-  fontFamily: "'Space Grotesk', sans-serif",
-  fontSize: "0.78rem",
-  fontWeight: 500,
-  letterSpacing: "0.1em",
-  lineHeight: 1.6,
-  textTransform: "uppercase",
-} as const;
-
-const linkRowStyle = {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: "1rem",
-} as const;
-
 const Projects = () => {
-  const [repos, setRepos] = useState<GitHubRepo[]>([]);
+  const [repos, setRepos] = useState<PinnedRepo[]>([]);
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
 
   useEffect(() => {
@@ -61,12 +44,10 @@ const Projects = () => {
     const loadRepos = async () => {
       try {
         const response = await fetch(
-          "https://api.github.com/users/zStrikerHD/repos?sort=updated&per_page=6",
+          "https://pinned.berrysauce.dev/get/zStrikerHD",
         );
-
         if (!response.ok) throw new Error("Falha ao carregar repositórios");
-
-        const data = (await response.json()) as GitHubRepo[];
+        const data = (await response.json()) as PinnedRepo[];
         if (!cancelled) { setRepos(data); setStatus("success"); }
       } catch {
         if (!cancelled) setStatus("error");
@@ -78,69 +59,70 @@ const Projects = () => {
   }, []);
 
   return (
-    <Portifolio
-      accent="#fa2a12"
-      description="Repositórios públicos carregados em tempo real do GitHub. Projetos que vão de plataformas SaaS (G.A Love Line), agendamento de barbearia, restaurante digital com API, até interfaces de vendas em C# com MySQL."
-      label="Projetos"
-      note="Os repositórios abaixo são carregados da conta zStrikerHD via API do GitHub. Para projetos privados e detalhes completos, entre em contato."
-      title="Projetos"
-    >
-      <a href="https://github.com/zStrikerHD" rel="noreferrer" style={profileLinkStyle} target="_blank">
-        Ver perfil completo no GitHub →
-      </a>
+    <PageShell>
+      <ContentFrame>
+        <TopBar>
+          <BackLink as={Link} to="/" state={{ from: "/projects" }}>Voltar</BackLink>
+        </TopBar>
 
-      {status === "loading" ? (
-        <InfoCard $accent="#fa2a12">
-          <InfoTitle>Carregando repositórios</InfoTitle>
-          <InfoText>
-            Buscando os projetos publicados no GitHub para montar esta seção.
-          </InfoText>
-        </InfoCard>
-      ) : null}
+        <HeaderBlock>
+          <Eyebrow>Projetos</Eyebrow>
+          <Title>Projetos</Title>
+          <Description>
+            Repositórios fixados (pinned) carregados em tempo real do GitHub. Destaques selecionados que demonstram as principais competências e criações.
+          </Description>
+          <HeroPanel>
+            Os repositórios abaixo são carregados da lista de fixados da conta zStrikerHD via API de Pinned Repositories. Para projetos privados e detalhes completos, entre em contato.
+          </HeroPanel>
+        </HeaderBlock>
 
-      {status === "error" ? (
-        <InfoCard $accent="#fa2a12">
-          <InfoTitle>Falha ao carregar</InfoTitle>
-          <InfoText>
-            Não foi possível carregar os repositórios agora. Mesmo assim, você pode acessar o perfil direto no GitHub.
-          </InfoText>
-        </InfoCard>
-      ) : null}
+        <ProfileLink href="https://github.com/zStrikerHD" rel="noreferrer" target="_blank">
+          Ver perfil completo no GitHub →
+        </ProfileLink>
 
-      {status === "success" ? (
-        <SectionGrid>
-          {repos.map((repo) => (
-            <InfoCard $accent="#fa2a12" key={repo.id}>
-              <InfoTitle>{repo.name}</InfoTitle>
-              <div style={metaStyle}>
-                {repo.language ?? "Sem linguagem principal"}
-                <br />
-                Atualizado em {new Date(repo.updated_at).toLocaleDateString("pt-BR")}
-              </div>
-              <InfoText>
-                {repo.description || "Repositório público sem descrição preenchida no GitHub."}
-              </InfoText>
-              <PillRow>
-                <Pill $accent="#fa2a12">
-                  {repo.stargazers_count} estrela{repo.stargazers_count === 1 ? "" : "s"}
-                </Pill>
-                {repo.language ? <Pill $accent="#fa2a12">{repo.language}</Pill> : null}
-              </PillRow>
-              <div style={linkRowStyle}>
-                <ContactLink $accent="#fa2a12" href={repo.html_url} rel="noreferrer" target="_blank">
-                  Código
-                </ContactLink>
-                {repo.homepage ? (
-                  <ContactLink $accent="#fa2a12" href={repo.homepage} rel="noreferrer" target="_blank">
-                    Demo
-                  </ContactLink>
-                ) : null}
-              </div>
-            </InfoCard>
-          ))}
-        </SectionGrid>
-      ) : null}
-    </Portifolio>
+        {status === "loading" && (
+          <StatusCard>
+            <RepoTitle>► Carregando repositórios...</RepoTitle>
+            <RepoDesc>Buscando os projetos fixados no GitHub para montar esta seção.</RepoDesc>
+          </StatusCard>
+        )}
+
+        {status === "error" && (
+          <StatusCard>
+            <RepoTitle>! Falha ao carregar</RepoTitle>
+            <RepoDesc>Não foi possível carregar os repositórios agora. Mesmo assim, você pode acessar o perfil direto no GitHub.</RepoDesc>
+          </StatusCard>
+        )}
+
+        {status === "success" && (
+          <>
+            <SectionLabel>// Repositórios Fixados</SectionLabel>
+            <RepoGrid>
+              {repos.map((repo) => (
+                <RepoCard key={repo.name}>
+                  <RepoTitle>{repo.name}</RepoTitle>
+                  <RepoMeta>
+                    {repo.language ?? "Sem linguagem principal"}
+                  </RepoMeta>
+                  <RepoDesc>
+                    {repo.description || "Repositório público sem descrição preenchida no GitHub."}
+                  </RepoDesc>
+                  <BadgeRow>
+                    <Badge>★ {repo.stars}</Badge>
+                    {repo.language && <Badge>{repo.language}</Badge>}
+                  </BadgeRow>
+                  <LinkRow>
+                    <RepoLink href={`https://github.com/${repo.author}/${repo.name}`} rel="noreferrer" target="_blank">
+                      Código
+                    </RepoLink>
+                  </LinkRow>
+                </RepoCard>
+              ))}
+            </RepoGrid>
+          </>
+        )}
+      </ContentFrame>
+    </PageShell>
   );
 };
 
