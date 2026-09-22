@@ -228,18 +228,14 @@ export const SectionLabel = styled.h2`
 export const RepoGrid = styled.div`
   display: grid;
   gap: 1.2rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr;
 `;
 
 export const RepoCard = styled.article`
   padding: 1.5rem 1.7rem;
-  display: grid;
-  align-content: start;
-  gap: 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.3rem;
   border: 1px solid rgba(250,42,18,0.14);
   background: rgba(12, 2, 0, 0.85);
   position: relative;
@@ -269,6 +265,10 @@ export const RepoCard = styled.article`
     border-color: rgba(250,42,18,0.38);
     transform: translateY(-5px);
     box-shadow: 0 14px 44px rgba(250,42,18,0.12);
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
   }
 `;
 
@@ -366,4 +366,62 @@ export const ProfileLink = styled.a`
 
 export const StatusCard = styled(RepoCard)`
   min-height: 140px;
+  flex-direction: column;
+  gap: 0.85rem;
+`;
+
+/* ── Project preview ── */
+
+export const ProjectBody = styled.div`
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  min-width: 0;
+`;
+
+export const PreviewFrame = styled.a`
+  display: block;
+  position: relative;
+  width: 150px;
+  aspect-ratio: 3 / 2;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: rgba(250,42,18,0.05);
+  border: 1px solid rgba(250,42,18,0.2);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+`;
+
+export const Preview = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  filter: saturate(0.9);
+  transition: transform 0.5s ease, filter 0.5s ease;
+
+  ${RepoCard}:hover & {
+    transform: scale(1.05);
+    filter: saturate(1);
+  }
+`;
+
+export const PreviewFallback = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  text-align: center;
+  color: rgba(250,100,80,0.5);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  word-break: break-all;
 `;
