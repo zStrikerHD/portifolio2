@@ -38,7 +38,7 @@ const cardStyle = {
 } as const;
 
 const nameStyle = {
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Bricolage Grotesque', sans-serif",
   fontSize: "1.45rem",
   fontWeight: 700,
   letterSpacing: "-0.01em",
@@ -50,7 +50,7 @@ const nameStyle = {
 } as const;
 
 const roleStyle = {
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Bricolage Grotesque', sans-serif",
   fontSize: "0.7rem",
   fontWeight: 600,
   letterSpacing: "0.32em",
@@ -77,7 +77,7 @@ const tagStyle = {
   borderRadius: "999px",
   border: "1px solid rgba(100, 140, 240, 0.2)",
   background: "rgba(20, 10, 60, 0.4)",
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Bricolage Grotesque', sans-serif",
   fontSize: "0.68rem",
   fontWeight: 500,
   letterSpacing: "0.04em",
@@ -88,7 +88,7 @@ const locationStyle = {
   fontSize: "0.72rem",
   fontWeight: 400,
   color: "rgba(160, 175, 220, 0.5)",
-  fontFamily: "'Inter', sans-serif",
+  fontFamily: "'Figtree', sans-serif",
   letterSpacing: "0.08em",
   display: "flex",
   alignItems: "center",

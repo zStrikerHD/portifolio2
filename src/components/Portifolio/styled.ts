@@ -30,11 +30,6 @@ const fadeSlideUp = keyframes`
   100% { opacity: 1; transform: translateY(0); }
 `;
 
-const shimmer = keyframes`
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-`;
-
 const starFloat = keyframes`
   0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0; }
   8%        { opacity: 0.8; }
@@ -259,7 +254,7 @@ export const TopBar = styled.div`
 export const BackLink = styled.a`
   width: fit-content;
   color: rgba(180, 190, 230, 0.6);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.28em;
@@ -283,16 +278,18 @@ export const BackLink = styled.a`
     position: absolute;
     bottom: 2px;
     left: 0;
-    width: 0;
+    width: 100%;
     height: 1px;
+    transform: scaleX(0);
+    transform-origin: left;
     background: currentColor;
-    transition: width 0.3s ease;
+    transition: transform 0.3s ease;
   }
 
   &:hover {
     color: rgba(200, 215, 255, 0.95);
     &::before { transform: translateX(-5px); }
-    &::after { width: 100%; }
+    &::after { transform: scaleX(1); }
   }
 `;
 
@@ -305,7 +302,7 @@ export const HeaderBlock = styled.div`
 
 export const Eyebrow = styled.span<{ $accent: string }>`
   color: ${({ $accent }) => $accent};
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.38em;
@@ -326,19 +323,13 @@ export const Eyebrow = styled.span<{ $accent: string }>`
 `;
 
 export const Title = styled.h1`
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   color: #ffffff;
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 800;
   line-height: 0.9;
   text-transform: uppercase;
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #ffffff 0%, #c0caec 30%, #a0aadd 60%, #ffffff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% auto;
-  animation: ${shimmer} 8s ease-in-out infinite;
 `;
 
 export const Description = styled.p`
@@ -463,7 +454,7 @@ export const InfoCard = styled.article<{ $accent: string }>`
 `;
 
 export const InfoTitle = styled.h2`
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   color: #dde6ff;
   font-size: 1.12rem;
   font-weight: 700;
@@ -492,7 +483,7 @@ export const Pill = styled.span<{ $accent: string }>`
   border: 1px solid ${({ $accent }) => `${$accent}25`};
   background: linear-gradient(135deg, ${({ $accent }) => `${$accent}0d`} 0%, rgba(10, 5, 40, 0.5) 100%);
   color: rgba(210, 225, 255, 0.85);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -534,7 +525,7 @@ export const FieldGroup = styled.label`
   display: grid;
   gap: 0.55rem;
   color: rgba(190, 205, 245, 0.8);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.15em;
@@ -549,7 +540,7 @@ export const Input = styled.input<{ $accent: string }>`
   outline: none;
   background: rgba(3, 2, 18, 0.7);
   color: #e0e8ff;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 0.93rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 
@@ -576,7 +567,7 @@ export const Textarea = styled.textarea<{ $accent: string }>`
   outline: none;
   background: rgba(3, 2, 18, 0.7);
   color: #e0e8ff;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 0.93rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 
@@ -601,7 +592,7 @@ export const SubmitButton = styled.button<{ $accent: string }>`
   background: linear-gradient(135deg, ${({ $accent }) => `${$accent}18`} 0%, rgba(20, 5, 60, 0.5) 100%);
   color: #e8eeff;
   cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -616,7 +607,6 @@ export const SubmitButton = styled.button<{ $accent: string }>`
     inset: 0;
     background: linear-gradient(90deg, transparent 0%, ${({ $accent }) => `${$accent}22`} 50%, transparent 100%);
     background-size: 200% 100%;
-    animation: ${shimmer} 3s ease-in-out infinite;
     pointer-events: none;
   }
 
@@ -635,7 +625,7 @@ export const SubmitButton = styled.button<{ $accent: string }>`
 export const ContactLink = styled.a<{ $accent: string }>`
   width: fit-content;
   color: ${({ $accent }) => $accent};
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.5;
@@ -649,16 +639,18 @@ export const ContactLink = styled.a<{ $accent: string }>`
     position: absolute;
     bottom: -2px;
     left: 0;
-    width: 0;
+    width: 100%;
     height: 1px;
+    transform: scaleX(0);
+    transform-origin: left;
     background: ${({ $accent }) => $accent};
-    transition: width 0.35s ease;
+    transition: transform 0.35s ease;
     box-shadow: 0 0 8px ${({ $accent }) => $accent};
   }
 
   &:hover {
     opacity: 0.9;
     text-shadow: 0 0 20px ${({ $accent }) => `${$accent}80`};
-    &::after { width: 100%; }
+    &::after { transform: scaleX(1); }
   }
 `;

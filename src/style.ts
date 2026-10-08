@@ -19,21 +19,21 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: #00010d;
-    color: #e4e9f2;
+    font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #0a0a0f;
+    color: #fafafa;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
-    font-weight: 600;
+    font-family: 'Outfit', 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
   }
 
   ::selection {
-    background: rgba(10, 250, 235, 0.25);
+    background: rgba(124, 58, 237, 0.35);
     color: #ffffff;
   }
 
@@ -59,7 +59,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   button {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Figtree', sans-serif;
   }
 
   img {

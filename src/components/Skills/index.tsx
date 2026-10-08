@@ -1,102 +1,122 @@
-import { Link } from "react-router-dom";
+import { InternalLayout } from "../common/InternalLayout";
 import {
-  BackLink,
-  Chip,
-  ChipRow,
-  ContentFrame,
-  Description,
-  Eyebrow,
-  HeaderBlock,
-  HeroPanel,
-  ModuleCard,
-  ModuleGrid,
-  ModuleText,
+  Container,
+  HeaderHero,
+  Badge,
+  PageTitle,
+  PageSubtitle,
+  SkillsGrid,
+  SkillModuleCard,
+  ModuleHeader,
+  IconBox,
   ModuleTitle,
-  PageShell,
-  SectionLabel,
-  Title,
-  TopBar,
+  ModuleDescription,
+  TagCloud,
+  TagPill,
 } from "./styled";
+import {
+  Code2,
+  Layers,
+  Server,
+  Smartphone,
+  Database,
+  GitBranch,
+  Palette,
+  Cloud,
+  Cpu,
+} from "lucide-react";
 
-const buckets = [
+const skillCategories = [
   {
-    title: "Linguagens de Programação",
-    items: ["Java", "JavaScript (ES6+)", "C#", "C++", "PHP", "Dart"],
-    desc: "Base sólida em múltiplas linguagens para atender diferentes cenários — desde aplicações enterprise com Java até scripts e automação.",
+    title: "Linguagens & Core",
+    icon: Code2,
+    desc: "Fundamentos sólidos em múltiplas sintaxes para atender desde microsserviços de alto desempenho até automação de processos.",
+    items: ["Java", "TypeScript", "JavaScript (ES6+)", "C#", "C++", "PHP", "Dart"],
   },
   {
-    title: "Front-end",
-    items: ["React", "TypeScript", "HTML5", "CSS3", "Sass", "Bootstrap", "Redux", "Vue.js", "Angular"],
-    desc: "Construção de interfaces modernas, responsivas e acessíveis utilizando os principais frameworks e bibliotecas do mercado.",
+    title: "Front-end Moderno",
+    icon: Layers,
+    desc: "Criação de interfaces responsivas, acessíveis, com micro-interações fluidas e foco em estética de estúdio e conversão.",
+    items: ["React", "TypeScript", "Vite", "Styled Components", "HTML5", "CSS3 / Sass", "Tailwind CSS", "Bootstrap 5", "Vue.js", "Angular"],
   },
   {
-    title: "Back-end",
-    items: ["Node.js", "Spring Boot (Java)", "Laravel", "APIs REST", "Spring Security", "Hibernate", "JPA", "Spring MVC"],
-    desc: "Desenvolvimento de servidores robustos, autenticação, integração de dados e APIs escaláveis.",
+    title: "Back-end & Arquitetura",
+    icon: Server,
+    desc: "Desenvolvimento de servidores robustos, controle transacional, segurança de autenticação e APIs RESTful escaláveis.",
+    items: ["Java (Spring Boot)", "Spring Security", "Hibernate / JPA", "Spring MVC", "Node.js", "Express", "Laravel (PHP)", "APIs REST"],
+  },
+  {
+    title: "Bancos de Dados",
+    icon: Database,
+    desc: "Modelagem relacional e não-relacional, otimização de consultas e integridade estrutural para sistemas corporativos.",
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Modelagem ER", "Migrations"],
+  },
+  {
+    title: "DevOps & Ferramentas",
+    icon: GitBranch,
+    desc: "Fluxos de trabalho com versionamento rigoroso, conteinerização de ambientes e metodologias ágeis de entrega contínua.",
+    items: ["Git & GitHub", "Docker", "VS Code", "Jest", "Scrum / Kanban", "Linux"],
   },
   {
     title: "Mobile",
-    items: ["Flutter", "Interfaces responsivas"],
-    desc: "Desenvolvimento de aplicativos multiplataforma e adaptação de layouts para qualquer tamanho de tela.",
+    icon: Smartphone,
+    desc: "Construção de aplicações móveis multiplataforma com designs adaptativos e consumo ágil de APIs externas.",
+    items: ["Flutter", "Interfaces Responsivas", "Mobile-First"],
   },
   {
-    title: "Banco de Dados",
-    items: ["MySQL", "PostgreSQL", "MongoDB"],
-    desc: "Modelagem, consultas e integração tanto com bancos relacionais quanto NoSQL.",
+    title: "Design & Multimídia",
+    icon: Palette,
+    desc: "Composição visual apurada, tratamento de assets gráficos e produção de conteúdo para fortalecimento de branding.",
+    items: ["Adobe Photoshop", "Adobe Premiere", "UI/UX Thinking", "Identidade Visual"],
   },
   {
-    title: "Ferramentas e Outros",
-    items: ["Git", "GitHub", "Docker", "VS Code", "Metodologias Ágeis", "Jest"],
-    desc: "Workflow de desenvolvimento com versionamento, containerização, testes e metodologias de entrega contínua.",
+    title: "Cloud & Microsserviços",
+    icon: Cloud,
+    desc: "Noções arquiteturais para deploys em nuvem, orquestração de containers e comunicação assíncrona entre serviços.",
+    items: ["AWS (Noções)", "Azure (Noções)", "Kubernetes (Noções)", "Arquitetura Distribuída"],
   },
-  {
-    title: "Design e Edição",
-    items: ["Adobe Photoshop", "Adobe Premiere"],
-    desc: "Apoio visual para criação de interfaces e conteúdo multimídia.",
-  },
-  {
-    title: "Cloud e Infraestrutura",
-    items: ["Kubernetes (noções)", "AWS / Azure (noções)", "Microsserviços"],
-    desc: "Conhecimento introdutório em cloud computing, orquestração de containers e arquiteturas distribuídas.",
-  },
-] as const;
+];
 
 const Skills = () => (
-  <PageShell>
-    <ContentFrame>
-      <TopBar>
-        <BackLink as={Link} to="/" state={{ from: "/skills" }}>Voltar</BackLink>
-      </TopBar>
+  <InternalLayout>
+    <Container>
+      <HeaderHero>
+        <Badge>
+          <Cpu size={14} />
+          <span>Arsenal Tecnológico</span>
+        </Badge>
+        <PageTitle>Habilidades & Ferramentas</PageTitle>
+        <PageSubtitle>
+          Tecnologias dominadas e aplicadas no dia a dia para construir produtos
+          digitais resilientes, do banco de dados à interface do usuário.
+        </PageSubtitle>
+      </HeaderHero>
 
-      <HeaderBlock>
-        <Eyebrow>Habilidades</Eyebrow>
-        <Title>Habilidades</Title>
-        <Description>
-          Competências técnicas organizadas por stack, com foco em desenvolvimento web full stack, back-end robusto, mobile, banco de dados, ferramentas de produtividade e infraestrutura cloud.
-        </Description>
-        <HeroPanel>
-          Base técnica para construir interfaces, sistemas e experiências completas com consistência visual e implementação sólida. Inglês técnico focado em leitura de documentação e escrita de código.
-        </HeroPanel>
-      </HeaderBlock>
+      <SkillsGrid>
+        {skillCategories.map((cat) => {
+          const Icon = cat.icon;
+          return (
+            <SkillModuleCard key={cat.title}>
+              <ModuleHeader>
+                <IconBox>
+                  <Icon size={20} />
+                </IconBox>
+                <ModuleTitle>{cat.title}</ModuleTitle>
+              </ModuleHeader>
 
-      <div>
-        <SectionLabel>Módulos de Competência</SectionLabel>
-        <ModuleGrid style={{ marginTop: "1.2rem" }}>
-          {buckets.map((bucket) => (
-            <ModuleCard key={bucket.title}>
-              <ModuleTitle>{bucket.title}</ModuleTitle>
-              <ChipRow>
-                {bucket.items.map((item) => (
-                  <Chip key={item}>{item}</Chip>
+              <ModuleDescription>{cat.desc}</ModuleDescription>
+
+              <TagCloud>
+                {cat.items.map((item) => (
+                  <TagPill key={item}>{item}</TagPill>
                 ))}
-              </ChipRow>
-              <ModuleText>{bucket.desc}</ModuleText>
-            </ModuleCard>
-          ))}
-        </ModuleGrid>
-      </div>
-    </ContentFrame>
-  </PageShell>
+              </TagCloud>
+            </SkillModuleCard>
+          );
+        })}
+      </SkillsGrid>
+    </Container>
+  </InternalLayout>
 );
 
 export default Skills;

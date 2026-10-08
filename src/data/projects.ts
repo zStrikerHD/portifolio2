@@ -67,4 +67,34 @@ export const projects: Project[] = [
     url: "https://barbearia-web-9cn5.onrender.com/",
     tags: ["React", "Vite", "TypeScript"],
   },
+  {
+    name: "Academia King's",
+    description: "Site institucional para academia em Bariri-SP.",
+    url: "https://kings-amber.vercel.app/",
+    tags: ["React", "Vite", "TypeScript"],
+  },
+  {
+    name: "Projeto Gymnasium",
+    description: "Site para academia com foco em planos e modalidades.",
+    url: "https://gymnasium-website-blue.vercel.app/",
+    tags: ["React", "Vite", "TypeScript"],
+  },
+  {
+    name: "Projeto iFit",
+    description: "Site de apresentação para o universo fitness.",
+    url: "https://ifit-ecru.vercel.app/",
+    tags: ["React", "Vite", "TypeScript"],
+  },
+  {
+    name: "Projeto Imparáveis",
+    description: "Site institucional com visual marcante e foco em conversão.",
+    url: "https://imparaveis-j2u4.vercel.app/",
+    tags: ["React", "Vite", "TypeScript"],
+  },
+  {
+    name: "Projeto Mais Móveis",
+    description: "Site para loja de móveis com vitrine de produtos.",
+    url: "https://mais-moveis.vercel.app/",
+    tags: ["React", "Vite", "TypeScript"],
+  },
 ];

@@ -1,184 +1,184 @@
-import { Link } from "react-router-dom";
+import { InternalLayout } from "../common/InternalLayout";
 import {
-  BackLink,
-  CardList,
-  CardMeta,
-  CardTitle,
-  ContentFrame,
-  Description,
-  Eyebrow,
-  HeaderBlock,
-  HeroPanel,
-  PageShell,
-  SectionLabel,
-  TimelineCard,
-  TimelineConnector,
-  TimelineDot,
-  TimelineItem,
-  TimeLine,
+  Container,
+  HeaderHero,
+  Badge,
+  PageTitle,
+  PageSubtitle,
   TimelineWrapper,
-  Title,
-  TopBar,
-  CardText,
+  TimelineItem,
+  TimelineDot,
+  ExperienceCard,
+  CardTop,
+  RoleTitle,
+  CompanyName,
+  PeriodBadge,
+  BulletList,
+  BulletItem,
+  SectionTitle,
 } from "./styled";
+import {
+  Briefcase,
+  Terminal,
+  TrendingUp,
+  Cpu,
+  GraduationCap,
+  Sparkles,
+} from "lucide-react";
 
 const professionalExperience = [
   {
-    title: "Freelance – Desenvolvedor Back-End",
-    role: "Desenvolvedor Back-End",
+    title: "Freelance – Desenvolvedor Back-End & Integrações",
+    company: "Projeto Corporativo de E-commerce",
     period: "02/2024 – 03/2024",
+    icon: Terminal,
     details: [
-      "Desenvolvimento de uma API de sincronização de estoque de itens de papelaria a partir do site da empresa React, utilizando Node.js e sincronizando direto com o estoque de produtos do site Bling.",
-      "Modificação do processo de vendas e do controle de estoque, já que a ferramenta desenvolvida consolidou os produtos dos dois sites, auxiliando o aumento de vendas e gerando menos trabalho operacional para a equipe.",
+      "Desenvolvimento de API de sincronização de estoque de itens de papelaria a partir do site da empresa em React, utilizando Node.js e integrando diretamente com o ERP Bling.",
+      "Otimização do processo de vendas e controle de estoque, consolidando produtos em múltiplos canais e reduzindo tempo operacional manual.",
+      "Criação de webhooks e endpoints para monitoramento em tempo real de pedidos e atualizações de inventário.",
     ],
   },
   {
-    title: "Comércio de Materiais para Construção Maria Luiza LTDA",
-    role: "Balconista / Vendedor · Bariri/SP",
+    title: "Vendas Técnicas & Gestão Comercial",
+    company: "Comércio de Materiais para Construção Maria Luiza LTDA",
     period: "06/2023 – 10/2025",
+    icon: TrendingUp,
     details: [
-      "Realização de atendimento consultivo e suporte em vendas técnicas, garantindo a satisfação do cliente.",
-      "Responsável por vendas de valores acima de 180 mil mensais, representando mais de 50% da venda do time.",
-      "Emissão de 20 a 30 pedidos diariamente, sendo reconhecido pela agilidade no atendimento.",
-      "Operação de sistema interno de vendas e gestão de estoque, assegurando a precisão do inventário e a agilidade no fechamento de pedidos.",
+      "Atendimento consultivo especializado em soluções técnicas de construção, garantindo alta retenção de clientes.",
+      "Responsável por vendas com volume superior a R$ 180.000 mensais, representando mais de 50% dos resultados da equipe.",
+      "Emissão ágil de 20 a 30 pedidos por dia com controle apurado no sistema de estoque e faturamento.",
+      "Intermediação direta entre clientes, equipes de logística e fornecedores com foco em metas rigorosas.",
     ],
   },
   {
-    title: "FK Grupo S/A",
-    role: "Prensista (Operador de Prensa) · Bariri/SP",
+    title: "Operador de Maquinário Industrial (Prensista)",
+    company: "FK Grupo S/A",
     period: "10/2022 – 03/2023",
+    icon: Cpu,
     details: [
-      "Operação de maquinário industrial com foco em metas de produção e padrões de qualidade rigorosos.",
-      "Colaboração com a equipe para otimização das rotinas no setor, contribuindo para a eficiência operacional.",
+      "Operação de prensas industriais de precisão com padrões de controle de qualidade milimétricos.",
+      "Proatividade em rotinas de melhoria contínua, segurança operacional e trabalho em equipe.",
     ],
   },
   {
-    title: "IBGE",
-    role: "Entrevistador Censitário · Bariri/SP",
+    title: "Entrevistador Censitário",
+    company: "IBGE (Instituto Brasileiro de Geografia e Estatística)",
     period: "07/2022 – 11/2022",
+    icon: Briefcase,
     details: [
-      "Coleta e análise de dados em campo, garantindo a integridade das informações para pesquisas amostrais.",
-      "Expertise em abordar diferentes perfis de público, aprimorando a empatia e a comunicação interpessoal.",
+      "Coleta e consolidação de dados estatísticos em campo, assegurando veracidade amostral e cumprimento de prazos.",
+      "Comunicação empática com diferentes perfis de público e manuseio de equipamentos eletrônicos de coleta segura.",
     ],
   },
-] as const;
+];
 
-const relevantProjects = [
+const academicProjects = [
   {
     title: "Barbearia Online com Integração ao Banco de Dados",
-    role: "Prova Final de React | EBAC",
+    company: "Prova Final de React · EBAC",
     period: "03/2026 – 04/2026",
+    icon: GraduationCap,
     details: [
-      "Construção de um site Full Stack para agendamento de barbearia.",
-      "Consumo de banco de dados projetado para facilitar a realização do agendamento de horários.",
-      "Utilizando Vite e Node, juntamente com MongoDB, uma aplicação completa para a facilitação tanto do barbeiro quanto do cliente.",
+      "Aplicação completa com agendamento de horários, autenticação de clientes, gerenciamento de barbeiros e persistência em banco de dados.",
+      "Interface autoral com Styled Components, animações fluidas e arquitetura limpa de componentes.",
     ],
   },
   {
-    title: "Plataforma Personalizada para Casais (G.A Love Line)",
-    role: "Projeto Próprio | Full Stack Java e React",
-    period: "01/2026 – Atual",
+    title: "LumiluPet – Sistema de Agendamento Pet",
+    company: "Projeto Autoral de Gestão",
+    period: "2025",
+    icon: Sparkles,
     details: [
-      "Desenvolvimento de uma aplicação SaaS onde cada casal possui um site personalizado e exclusivo.",
-      "Criação de APIs robustas com Java (Spring Boot) e integração de interfaces dinâmicas utilizando React.",
-      "Implementação de regras de negócios complexas para personalização de conteúdo em tempo real.",
+      "Plataforma intuitiva para clínicas e pet shops gerenciarem consultas, banhos e procedimentos veterinários.",
+      "Design responsivo com foco em simplicidade para tutores e painel de controle operacional para funcionários.",
     ],
   },
-  {
-    title: "Restaurante Digital com Integração de API",
-    role: "Prova Final de React | EBAC",
-    period: "10/2025 – 12/2025",
-    details: [
-      "Construção de um site de vendas para restaurante com foco em UX e performance.",
-      "Consumo de dados via APIs externas para listagem de produtos e pedidos.",
-      "Gerenciamento de estado global com Redux e estilização avançada com Sass.",
-    ],
-  },
-  {
-    title: "Interface de Vendas e Gestão",
-    role: "Trabalho de Conclusão de Curso (TCC) | Etec Jaú",
-    period: "06/2024 – 12/2024",
-    details: [
-      "Desenvolvimento de interface completa para setor comercial e automação de vendas.",
-      "Linguagem C# para lógica do sistema e MySQL para persistência e segurança dos dados.",
-      "Aplicação de conceitos de engenharia de software para garantir fluxo de trabalho eficiente.",
-    ],
-  },
-] as const;
+];
 
 const Experience = () => (
-  <PageShell>
-    <ContentFrame>
-      <TopBar>
-        <BackLink as={Link} to="/" state={{ from: "/experience" }}>Voltar</BackLink>
-      </TopBar>
+  <InternalLayout>
+    <Container>
+      <HeaderHero>
+        <Badge>
+          <Briefcase size={14} />
+          <span>Trajetória & Vivência</span>
+        </Badge>
+        <PageTitle>Experiência & Histórico</PageTitle>
+        <PageSubtitle>
+          Minha jornada une desenvolvimento de software, integração de sistemas,
+          visão comercial consultiva e disciplina operacional para entregar resultados reais.
+        </PageSubtitle>
+      </HeaderHero>
 
-      <HeaderBlock>
-        <Eyebrow>Experiência</Eyebrow>
-        <Title>Experiência</Title>
-        <Description>
-          Trajetória que combina experiência de campo, rotina operacional, contato direto com pessoas e projetos técnicos com foco real em sistema, produto e entrega.
-        </Description>
-        <HeroPanel>
-          Experiência profissional e projetos relevantes que conectam atendimento, operação, raciocínio lógico e construção de produtos digitais completos.
-        </HeroPanel>
-      </HeaderBlock>
+      <section>
+        <SectionTitle>
+          <Briefcase size={22} color="#A78BFA" />
+          Atuação Profissional
+        </SectionTitle>
 
-      <div>
-        <SectionLabel>Experiência Profissional</SectionLabel>
-        <TimelineWrapper style={{ marginTop: "1.6rem" }}>
-          {professionalExperience.map((item, i) => (
-            <TimelineItem key={item.title}>
-              <TimeLine>
-                <TimelineDot />
-                {i < professionalExperience.length - 1 && <TimelineConnector />}
-              </TimeLine>
-              <TimelineCard>
-                <CardTitle>{item.title}</CardTitle>
-                <CardMeta>
-                  {item.role}<br />{item.period}
-                </CardMeta>
-                <CardList>
-                  {item.details.map((d) => (
-                    <li key={d}>{d}</li>
-                  ))}
-                </CardList>
-              </TimelineCard>
-            </TimelineItem>
-          ))}
+        <TimelineWrapper>
+          {professionalExperience.map((item) => {
+            const Icon = item.icon;
+            return (
+              <TimelineItem key={item.title}>
+                <TimelineDot>
+                  <Icon size={18} />
+                </TimelineDot>
+                <ExperienceCard>
+                  <CardTop>
+                    <div>
+                      <RoleTitle>{item.title}</RoleTitle>
+                      <CompanyName>{item.company}</CompanyName>
+                    </div>
+                    <PeriodBadge>{item.period}</PeriodBadge>
+                  </CardTop>
+                  <BulletList>
+                    {item.details.map((bullet, i) => (
+                      <BulletItem key={i}>{bullet}</BulletItem>
+                    ))}
+                  </BulletList>
+                </ExperienceCard>
+              </TimelineItem>
+            );
+          })}
         </TimelineWrapper>
-      </div>
+      </section>
 
-      <div>
-        <SectionLabel>Projetos Relevantes</SectionLabel>
-        <TimelineWrapper style={{ marginTop: "1.6rem" }}>
-          {relevantProjects.map((item, i) => (
-            <TimelineItem key={item.title}>
-              <TimeLine>
-                <TimelineDot />
-                {i < relevantProjects.length - 1 && <TimelineConnector />}
-              </TimeLine>
-              <TimelineCard>
-                <CardTitle>{item.title}</CardTitle>
-                <CardMeta>
-                  {item.role}<br />{item.period}
-                </CardMeta>
-                <CardList>
-                  {item.details.map((d) => (
-                    <li key={d}>{d}</li>
-                  ))}
-                </CardList>
-              </TimelineCard>
-            </TimelineItem>
-          ))}
+      <section>
+        <SectionTitle>
+          <GraduationCap size={22} color="#A78BFA" />
+          Projetos de Destaque Acadêmico
+        </SectionTitle>
+
+        <TimelineWrapper>
+          {academicProjects.map((item) => {
+            const Icon = item.icon;
+            return (
+              <TimelineItem key={item.title}>
+                <TimelineDot>
+                  <Icon size={18} />
+                </TimelineDot>
+                <ExperienceCard>
+                  <CardTop>
+                    <div>
+                      <RoleTitle>{item.title}</RoleTitle>
+                      <CompanyName>{item.company}</CompanyName>
+                    </div>
+                    <PeriodBadge>{item.period}</PeriodBadge>
+                  </CardTop>
+                  <BulletList>
+                    {item.details.map((bullet, i) => (
+                      <BulletItem key={i}>{bullet}</BulletItem>
+                    ))}
+                  </BulletList>
+                </ExperienceCard>
+              </TimelineItem>
+            );
+          })}
         </TimelineWrapper>
-      </div>
-
-      <CardText>
-        Essas experiências reforçam comunicação, análise, adaptação, foco em resultado e tradução de necessidades reais em fluxos de sistema mais consistentes.
-      </CardText>
-    </ContentFrame>
-  </PageShell>
+      </section>
+    </Container>
+  </InternalLayout>
 );
 
 export default Experience;

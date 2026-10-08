@@ -1,139 +1,255 @@
-import { Link } from "react-router-dom";
+import { InternalLayout } from "../common/InternalLayout";
 import {
-  BackLink,
-  ContentFrame,
-  Description,
-  Eyebrow,
-  HeaderBlock,
-  HeroPanel,
+  Container,
+  HeroSection,
+  HeroContent,
+  HeroTitle,
+  HeroSubtitle,
+  Badge,
+  ManifestQuote,
+  HeroMetaPanel,
+  StatBox,
+  StatIconWrap,
+  StatValue,
+  StatLabel,
+  SectionHeader,
+  SectionTitle,
+  SectionSubtitle,
+  CardsGrid,
   InfoCard,
-  InfoText,
   InfoTitle,
-  PageShell,
-  Pill,
-  PillRow,
-  SectionGrid,
-  SectionLabel,
-  TopBar,
+  InfoText,
+  TimelineList,
+  TimelineCard,
+  TimelineYear,
+  TimelineTitle,
+  TimelineDesc,
+  ChipGroup,
+  Chip,
 } from "./styled";
+import {
+  Sparkles,
+  MapPin,
+  GraduationCap,
+  Briefcase,
+  Terminal,
+  ShieldCheck,
+  CheckCircle2,
+  Code2,
+  Layers,
+} from "lucide-react";
 
 const aboutCards = [
   {
-    title: "Quem sou",
-    text: "Desenvolvedor Full Stack Java formado pela EBAC – Escola Britânica de Artes Criativas e Tecnologia, com Curso Técnico em Desenvolvimento de Sistemas pela Etec Jaú. Profissional proativo, paciente e detalhista, com facilidade para aprender, criatividade e habilidade em lidar com clientes.",
+    title: "O Propósito da Duck.IA",
+    icon: Sparkles,
+    text: "Criei a Duck.IA com um propósito claro: levar a sua empresa para o futuro sem que a tecnologia seja uma dor de cabeça. Transformo ideias em sites, aplicativos e ferramentas digitais práticas, amigáveis e fáceis de usar.",
   },
   {
-    title: "Experiência aplicada",
-    text: "Participação no desenvolvimento de API de sincronização de estoque como freelancer, contribuindo para otimizar processos de integração e gestão de dados. Experiência em vendas técnicas com foco em resultado, operação industrial e pesquisa censitária pelo IBGE.",
+    title: "Engenharia & Soluções",
+    icon: Terminal,
+    text: "Cuido de toda a parte técnica nos bastidores para que você não precise se preocupar com códigos ou termos difíceis — apenas em economizar tempo, encantar clientes e fazer seu sonho acontecer.",
   },
   {
-    title: "Foco atual",
-    text: "Desenvolvimento de aplicações SaaS, portfólios interativos com experiência 3D, e projetos Full Stack com Java (Spring Boot) e React. Interesse em cloud computing (AWS/Azure), microsserviços e Kubernetes.",
+    title: "Experiência Aplicada",
+    icon: Briefcase,
+    text: "Desenvolvimento de APIs robustas para sincronização de estoque, sistemas de vendas e e-commerce com alta performance, além de vivência em atendimento consultivo de alta escala e operação de sistemas corporativos.",
   },
-] as const;
+];
 
 const formation = [
   {
+    year: "2025 – 2026",
     title: "Full Stack Java – EBAC",
-    text: "Curso Profissionalizante na Escola Britânica de Artes Criativas e Tecnologia. Março/2025 – Março/2026.",
+    desc: "Escola Britânica de Artes Criativas e Tecnologia. Especialização com foco em Java, Spring Boot, arquitetura de software e React.",
   },
   {
-    title: "Técnico em Desenvolvimento de Sistemas – Etec Jaú",
-    text: "Ensino Técnico com foco em engenharia de software, banco de dados e lógica de programação. Julho/2023 – Dezembro/2024.",
+    year: "2023 – 2024",
+    title: "Técnico em Desenvolvimento de Sistemas",
+    desc: "Etec Jaú. Formação sólida em engenharia de software, modelagem de banco de dados relacional e lógica avançada.",
   },
   {
-    title: "Ciências da Computação – USC",
-    text: "Bacharelado na Universidade do Sagrado Coração. 03/2021 – 09/2021 (não concluído).",
+    year: "2021",
+    title: "Ciências da Computação",
+    desc: "Universidade do Sagrado Coração (USC). Fundamentos de algoritmos, cálculo e estruturas computacionais.",
   },
-] as const;
+];
 
 const certifications = [
-  "React + TypeScript + Java (Spring Boot) – Alura 2026",
-  "PHP Moderno e Fundamentos – Udemy 2025",
-  "Bootstrap 5: Web Responsivo – Udemy 2025",
-  "Java e Spring Boot Completo – Alura 2025",
-  "Adobe Premiere – Alura 2024",
-  "Adobe Photoshop – Alura 2024",
-] as const;
+  "React + TypeScript + Java (Spring Boot) – Alura",
+  "Java e Spring Boot Completo – Alura",
+  "PHP Moderno e Fundamentos – Udemy",
+  "Bootstrap 5 & Web Responsivo – Udemy",
+  "Adobe Premiere & Produção Audiovisual – Alura",
+  "Adobe Photoshop & Identidade Visual – Alura",
+];
 
-const tags = [
-  "Full Stack Java",
-  "React + TypeScript",
+const mainStack = [
+  "Java",
   "Spring Boot",
+  "React",
+  "TypeScript",
   "Node.js",
-  "APIs REST",
-  "MySQL / PostgreSQL",
+  "APIs RESTful",
+  "PostgreSQL",
+  "MySQL",
   "MongoDB",
   "Docker",
-  "Git & GitHub",
-  "Inglês Técnico",
-] as const;
+  "Vite",
+  "Styled Components",
+  "Tailwind / CSS3",
+  "Git / GitHub",
+];
 
 const Overview = () => (
-  <PageShell>
-    <ContentFrame>
-      <TopBar>
-        <BackLink as={Link} to="/" state={{ from: "/overview" }}>
-          Voltar
-        </BackLink>
-      </TopBar>
+  <InternalLayout>
+    <Container>
+      <HeroSection>
+        <HeroContent>
+          <Badge>
+            <Sparkles size={14} />
+            <span>Fundador da Duck.IA · Bariri/SP</span>
+          </Badge>
 
-      <HeaderBlock>
-        <Eyebrow>Visão Geral</Eyebrow>
-        <InfoTitle as="h1" style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
-          GIOVANI_SANCHEZ
-        </InfoTitle>
-        <Description>
-          Desenvolvedor Full Stack Java com formação pela EBAC e técnico em Desenvolvimento de Sistemas. Experiência em integração de sistemas, criação de APIs e construção de interfaces modernas. Bariri/SP, disponível para mudança.
-        </Description>
-        <HeroPanel>
-          Habilidades em HTML5, CSS3, JavaScript, React, Spring Boot, Hibernate, JPA, MySQL, PostgreSQL, MongoDB. Conhecimentos em Spring Security, C#, Vue.js, Angular, Jest. Noções de Kubernetes, cloud computing e microsserviços.
-        </HeroPanel>
-      </HeaderBlock>
+          <HeroTitle>Giovani Sanchez</HeroTitle>
 
-      <div>
-        <SectionLabel>// Sobre</SectionLabel>
-        <SectionGrid style={{ marginTop: "1.2rem" }}>
-          {aboutCards.map((card) => (
-            <InfoCard key={card.title}>
-              <InfoTitle>{card.title}</InfoTitle>
-              <InfoText>{card.text}</InfoText>
-            </InfoCard>
+          <HeroSubtitle>
+            Desenvolvedor Full Stack e fundador da <strong>Duck.IA</strong>. Construo
+            interfaces autorais de alto impacto, APIs seguras e sistemas digitais
+            que conectam marcas ao futuro.
+          </HeroSubtitle>
+
+          <ManifestQuote>
+            “Seu sonho não precisa entender de tecnologia para acontecer. A Duck.IA cuida do caminho até o Futuro.”
+          </ManifestQuote>
+        </HeroContent>
+
+        <HeroMetaPanel>
+          <StatBox>
+            <StatIconWrap>
+              <Code2 size={22} />
+            </StatIconWrap>
+            <div>
+              <StatValue>Full Stack Java</StatValue>
+              <StatLabel>Java · Spring Boot · React · TS</StatLabel>
+            </div>
+          </StatBox>
+
+          <StatBox>
+            <StatIconWrap>
+              <MapPin size={22} />
+            </StatIconWrap>
+            <div>
+              <StatValue>Bariri - SP</StatValue>
+              <StatLabel>Disponível para trabalho presencial e remoto</StatLabel>
+            </div>
+          </StatBox>
+
+          <StatBox>
+            <StatIconWrap>
+              <GraduationCap size={22} />
+            </StatIconWrap>
+            <div>
+              <StatValue>EBAC + Etec</StatValue>
+              <StatLabel>Formação técnica e criativa contínua</StatLabel>
+            </div>
+          </StatBox>
+        </HeroMetaPanel>
+      </HeroSection>
+
+      {/* Sobre e Filosofia */}
+      <section>
+        <SectionHeader>
+          <SectionTitle>
+            <Layers size={22} color="#A78BFA" />
+            Visão Geral & Filosofia
+          </SectionTitle>
+          <SectionSubtitle>
+            A visão que guia cada projeto e linha de código
+          </SectionSubtitle>
+        </SectionHeader>
+
+        <CardsGrid>
+          {aboutCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <InfoCard key={card.title}>
+                <InfoTitle>
+                  <Icon size={18} color="#C4B5FD" />
+                  {card.title}
+                </InfoTitle>
+                <InfoText>{card.text}</InfoText>
+              </InfoCard>
+            );
+          })}
+        </CardsGrid>
+      </section>
+
+      {/* Formação Acadêmica */}
+      <section>
+        <SectionHeader>
+          <SectionTitle>
+            <GraduationCap size={22} color="#A78BFA" />
+            Formação Acadêmica
+          </SectionTitle>
+          <SectionSubtitle>
+            Bases técnicas e acadêmicas de desenvolvimento
+          </SectionSubtitle>
+        </SectionHeader>
+
+        <TimelineList>
+          {formation.map((f) => (
+            <TimelineCard key={f.title}>
+              <TimelineYear>{f.year}</TimelineYear>
+              <TimelineTitle>{f.title}</TimelineTitle>
+              <TimelineDesc>{f.desc}</TimelineDesc>
+            </TimelineCard>
           ))}
-        </SectionGrid>
-      </div>
+        </TimelineList>
+      </section>
 
-      <div>
-        <SectionLabel>// Formação Acadêmica</SectionLabel>
-        <SectionGrid style={{ marginTop: "1.2rem" }}>
-          {formation.map((item) => (
-            <InfoCard key={item.title}>
-              <InfoTitle>{item.title}</InfoTitle>
-              <InfoText>{item.text}</InfoText>
-            </InfoCard>
-          ))}
-        </SectionGrid>
-      </div>
+      {/* Cursos e Certificações */}
+      <section>
+        <SectionHeader>
+          <SectionTitle>
+            <ShieldCheck size={22} color="#A78BFA" />
+            Certificações & Especializações
+          </SectionTitle>
+          <SectionSubtitle>
+            Cursos complementares e aprimoramento contínuo
+          </SectionSubtitle>
+        </SectionHeader>
 
-      <div>
-        <SectionLabel>// Cursos Complementares</SectionLabel>
-        <PillRow style={{ marginTop: "1rem" }}>
+        <ChipGroup>
           {certifications.map((cert) => (
-            <Pill key={cert}>{cert}</Pill>
+            <Chip key={cert}>
+              <CheckCircle2 size={14} color="#7C3AED" />
+              {cert}
+            </Chip>
           ))}
-        </PillRow>
-      </div>
+        </ChipGroup>
+      </section>
 
-      <div>
-        <SectionLabel>// Stack Principal</SectionLabel>
-        <PillRow style={{ marginTop: "1rem" }}>
-          {tags.map((tag) => (
-            <Pill key={tag}>{tag}</Pill>
+      {/* Stack Principal */}
+      <section>
+        <SectionHeader>
+          <SectionTitle>
+            <Terminal size={22} color="#A78BFA" />
+            Tecnologias Principais
+          </SectionTitle>
+          <SectionSubtitle>
+            Ferramentas utilizadas para criar soluções completas
+          </SectionSubtitle>
+        </SectionHeader>
+
+        <ChipGroup>
+          {mainStack.map((tech) => (
+            <Chip key={tech}>{tech}</Chip>
           ))}
-        </PillRow>
-      </div>
-    </ContentFrame>
-  </PageShell>
+        </ChipGroup>
+      </section>
+    </Container>
+  </InternalLayout>
 );
 
 export default Overview;

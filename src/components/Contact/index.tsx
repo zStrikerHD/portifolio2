@@ -1,122 +1,178 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { InternalLayout } from "../common/InternalLayout";
 import {
-  BackLink,
-  CommCard,
-  CommText,
-  CommTitle,
-  ContactForm,
-  ContactLink,
-  ContentFrame,
-  Description,
-  Eyebrow,
-  FieldGroup,
+  Container,
+  HeaderHero,
+  Badge,
+  PageTitle,
+  PageSubtitle,
+  SplitLayout,
+  DirectChannels,
+  ChannelCard,
+  ChannelIcon,
+  ChannelInfo,
+  ChannelTitle,
+  ChannelDetail,
   FormCard,
-  HeaderBlock,
-  HeroPanel,
+  FormTitle,
+  FormDescription,
+  ContactForm,
+  FieldGroup,
   Input,
-  PageShell,
-  SendButton,
-  SplitGrid,
   Textarea,
-  Title,
-  TopBar,
+  SubmitButton,
 } from "./styled";
+import {
+  Mail,
+  MessageCircle,
+  Phone,
+  MapPin,
+  Send,
+  Sparkles,
+  CheckCircle2,
+} from "lucide-react";
 
 const EMAIL = "sanchezgiovani045@gmail.com";
-const PHONE_1 = "14996264003";
-const PHONE_2 = "11915927534";
+const PHONE_WHATSAPP = "14996264003";
 
-const Contact = () => (
-  <PageShell>
-    <ContentFrame>
-      <TopBar>
-        <BackLink as={Link} to="/" state={{ from: "/contact" }}>Voltar</BackLink>
-      </TopBar>
+const Contact = () => {
+  const [sent, setSent] = useState(false);
 
-      <HeaderBlock>
-        <Eyebrow>Contato</Eyebrow>
-        <Title>Contato</Title>
-        <Description>
-          Se quiser falar sobre um projeto, uma oportunidade ou apenas trocar uma ideia, pode me chamar por qualquer um dos canais abaixo. Bariri/SP, disponível para mudança.
-        </Description>
-        <HeroPanel>
-          Desenvolvedor Full Stack Java disponível para propostas de trabalho remoto ou presencial. Resposta rápida por e-mail ou telefone.
-        </HeroPanel>
-      </HeaderBlock>
+  const handleSubmit = () => {
+    // Permite que o formulário submeta normalmente para o mailto:
+    setSent(true);
+  };
 
-      <SplitGrid>
-        <FormCard>
-          <CommTitle>Enviar mensagem</CommTitle>
-          <CommText>
-            Este formulário abre o seu cliente de e-mail com os dados preenchidos.
-          </CommText>
+  return (
+    <InternalLayout>
+      <Container>
+        <HeaderHero>
+          <Badge>
+            <Sparkles size={14} />
+            <span>Fale com a Duck.IA</span>
+          </Badge>
+          <PageTitle>Contato & Parcerias</PageTitle>
+          <PageSubtitle>
+            Tem uma ideia de projeto, precisa de uma interface autoral ou quer
+            integrar novas ferramentas ao seu negócio? Vamos conversar.
+          </PageSubtitle>
+        </HeaderHero>
 
-          <ContactForm
-            action={`mailto:${EMAIL}`}
-            encType="text/plain"
-            method="post"
-          >
-            <FieldGroup>
-              Nome
-              <Input name="Nome" placeholder="Seu nome" type="text" />
-            </FieldGroup>
+        <SplitLayout>
+          <DirectChannels>
+            <ChannelCard
+              href={`https://wa.me/55${PHONE_WHATSAPP}?text=Ol%C3%A1%20Giovani%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20Duck.IA!`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ChannelIcon>
+                <MessageCircle size={22} />
+              </ChannelIcon>
+              <ChannelInfo>
+                <ChannelTitle>WhatsApp Direto</ChannelTitle>
+                <ChannelDetail>(14) 99626-4003 · Atendimento Rápido</ChannelDetail>
+              </ChannelInfo>
+            </ChannelCard>
 
-            <FieldGroup>
-              Email
-              <Input name="Email" placeholder="seuemail@exemplo.com" type="email" />
-            </FieldGroup>
+            <ChannelCard href={`mailto:${EMAIL}`}>
+              <ChannelIcon>
+                <Mail size={22} />
+              </ChannelIcon>
+              <ChannelInfo>
+                <ChannelTitle>E-mail Profissional</ChannelTitle>
+                <ChannelDetail>{EMAIL}</ChannelDetail>
+              </ChannelInfo>
+            </ChannelCard>
 
-            <FieldGroup>
-              Mensagem
-              <Textarea
-                name="Mensagem"
-                placeholder="Me conte sobre o projeto, prazo e objetivo."
-              />
-            </FieldGroup>
+            <ChannelCard href="tel:5514996264003">
+              <ChannelIcon>
+                <Phone size={22} />
+              </ChannelIcon>
+              <ChannelInfo>
+                <ChannelTitle>Telefone Comercial</ChannelTitle>
+                <ChannelDetail>(14) 99626-4003 / (11) 91592-7534</ChannelDetail>
+              </ChannelInfo>
+            </ChannelCard>
 
-            <SendButton type="submit">Enviar por e-mail</SendButton>
-          </ContactForm>
-        </FormCard>
+            <ChannelCard as="div" style={{ cursor: "default" }}>
+              <ChannelIcon>
+                <MapPin size={22} />
+              </ChannelIcon>
+              <ChannelInfo>
+                <ChannelTitle>Localização</ChannelTitle>
+                <ChannelDetail>Bariri - SP · Disponível para viagens e mudança</ChannelDetail>
+              </ChannelInfo>
+            </ChannelCard>
+          </DirectChannels>
 
-        <CommCard>
-          <CommTitle>Email direto</CommTitle>
-          <CommText>Se preferir, pode me chamar sem passar pelo formulário.</CommText>
-          <ContactLink href={`mailto:${EMAIL}`}>{EMAIL}</ContactLink>
-        </CommCard>
+          <FormCard>
+            <FormTitle>Enviar Mensagem</FormTitle>
+            <FormDescription>
+              Preencha o formulário abaixo para iniciar uma conversa diretamente
+              com o fundador da Duck.IA.
+            </FormDescription>
 
-        <CommCard>
-          <CommTitle>Telefone</CommTitle>
-          <CommText>Disponível para contato rápido por chamada ou mensagem.</CommText>
-          <ContactLink href={`tel:+55${PHONE_1}`}>(14) 99626-4003</ContactLink>
-          <ContactLink href={`tel:+55${PHONE_2}`}>(11) 91592-7534</ContactLink>
-        </CommCard>
+            <ContactForm
+              action={`mailto:${EMAIL}`}
+              method="post"
+              encType="text/plain"
+              onSubmit={handleSubmit}
+            >
+              <FieldGroup>
+                Seu Nome ou Empresa
+                <Input
+                  type="text"
+                  name="nome"
+                  required
+                  placeholder="Ex: Carlos Oliveira (Empresa X)"
+                />
+              </FieldGroup>
 
-        <CommCard>
-          <CommTitle>LinkedIn</CommTitle>
-          <CommText>Conecte-se comigo para acompanhar minha trajetória profissional.</CommText>
-          <ContactLink
-            href="https://linkedin.com/in/giovani-g-sanchez"
-            rel="noreferrer"
-            target="_blank"
-          >
-            Giovani G. Sanchez
-          </ContactLink>
-        </CommCard>
+              <FieldGroup>
+                Seu E-mail ou Telefone
+                <Input
+                  type="text"
+                  name="contato"
+                  required
+                  placeholder="Ex: carlos@empresa.com.br ou (11) 99999-9999"
+                />
+              </FieldGroup>
 
-        <CommCard>
-          <CommTitle>GitHub</CommTitle>
-          <CommText>Repositórios públicos com código-fonte dos projetos.</CommText>
-          <ContactLink
-            href="https://github.com/zStrikerHD"
-            rel="noreferrer"
-            target="_blank"
-          >
-            github.com/zStrikerHD
-          </ContactLink>
-        </CommCard>
-      </SplitGrid>
-    </ContentFrame>
-  </PageShell>
-);
+              <FieldGroup>
+                Sobre o que gostaria de falar?
+                <Textarea
+                  name="mensagem"
+                  required
+                  placeholder="Conte um pouco sobre a sua ideia, necessidade ou oportunidade..."
+                />
+              </FieldGroup>
+
+              <SubmitButton type="submit">
+                <Send size={16} />
+                <span>Enviar Mensagem</span>
+              </SubmitButton>
+
+              {sent && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    color: "#a78bfa",
+                    fontSize: "0.85rem",
+                    marginTop: "0.5rem",
+                  }}
+                >
+                  <CheckCircle2 size={16} />
+                  <span>Seu cliente de e-mail foi acionado com os dados preenchidos!</span>
+                </div>
+              )}
+            </ContactForm>
+          </FormCard>
+        </SplitLayout>
+      </Container>
+    </InternalLayout>
+  );
+};
 
 export default Contact;

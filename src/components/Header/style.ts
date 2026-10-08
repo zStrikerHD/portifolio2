@@ -26,7 +26,7 @@ export const titleWrapStyle: CSSProperties = {
 
 export const titleStyle: CSSProperties = {
   color: "rgba(140, 165, 255, 0.45)",
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Bricolage Grotesque', sans-serif",
   fontSize: "0.65rem",
   fontWeight: 600,
   letterSpacing: "0.82em",
@@ -35,7 +35,7 @@ export const titleStyle: CSSProperties = {
 
 export const subtitleStyle: CSSProperties = {
   color: "#ffffff",
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Bricolage Grotesque', sans-serif",
   fontSize: "1.75rem",
   fontWeight: 800,
   letterSpacing: "0.28em",
@@ -50,7 +50,7 @@ export const subtitleStyle: CSSProperties = {
 
 export const sphereLabelStyle: CSSProperties = {
   color: "#d4dcff",
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Bricolage Grotesque', sans-serif",
   fontSize: "0.72rem",
   fontWeight: 700,
   left: "0",
@@ -74,7 +74,7 @@ export const instructionStyle: CSSProperties = {
   left: "50%",
   transform: "translateX(-50%)",
   color: "rgba(100, 130, 210, 0.22)",
-  fontFamily: "'Space Grotesk', sans-serif",
+  fontFamily: "'Bricolage Grotesque', sans-serif",
   fontSize: "0.62rem",
   fontWeight: 500,
   letterSpacing: "0.5em",

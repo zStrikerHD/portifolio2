@@ -1,142 +1,169 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { InternalLayout } from "../common/InternalLayout";
 import { projects, type Project } from "../../data/projects";
 import {
-  BackLink,
+  Container,
+  HeaderHero,
   Badge,
-  BadgeRow,
-  ContentFrame,
-  Description,
-  Eyebrow,
-  HeaderBlock,
-  HeroPanel,
-  LinkRow,
-  PageShell,
-  Preview,
-  PreviewFallback,
-  PreviewFrame,
-  ProjectBody,
-  RepoCard,
-  RepoDesc,
-  RepoGrid,
-  RepoLink,
-  RepoMeta,
-  RepoTitle,
-  SectionLabel,
-  StatusCard,
-  Title,
-  TopBar,
+  PageTitle,
+  PageSubtitle,
+  FilterBar,
+  FilterButton,
+  ProjectsGrid,
+  ProjectCard,
+  PreviewWrap,
+  PreviewImage,
+  FallbackPreview,
+  LiveBadge,
+  CardBody,
+  CardTitle,
+  CardDescription,
+  TagRow,
+  TagChip,
+  ActionLink,
 } from "./styled";
+import {
+  FolderGit2,
+  ExternalLink,
+  Globe,
+} from "lucide-react";
 
-/**
- * Serviços gratuitos que geram screenshot de um site a partir da URL.
- * O mShots devolve uma imagem "gerando..." nas primeiras chamadas, por isso
- * o card recarrega a prévia algumas vezes até a screenshot real ficar pronta.
- */
 const previewSources = (url: string) => [
   `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=600&h=400`,
   `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`,
 ];
 
-const RETRIES = 3;
-const RETRY_DELAY_MS = 4000;
-
-const hostOf = (url: string) => {
-  try {
-    return new URL(url).host;
-  } catch {
-    return url;
-  }
-};
-
-const ProjectCard = ({ project }: { project: Project }) => {
-  const [sourceIndex, setSourceIndex] = useState(0);
-  const [attempt, setAttempt] = useState(0);
+const ProjectCardItem: React.FC<{ project: Project }> = ({ project }) => {
+  const [sourceIdx, setSourceIdx] = useState(0);
+  const [hasError, setHasError] = useState(false);
   const sources = project.image ? [project.image] : previewSources(project.url);
-  const failed = sourceIndex >= sources.length;
-  const base = sources[sourceIndex];
-  const src = attempt > 0 ? `${base}&r=${attempt}` : base;
 
-  // Recarrega a prévia do mShots enquanto ela ainda pode estar "gerando".
-  useEffect(() => {
-    if (project.image || sourceIndex !== 0 || attempt >= RETRIES) return;
-    const id = setTimeout(() => setAttempt((a) => a + 1), RETRY_DELAY_MS);
-    return () => clearTimeout(id);
-  }, [project.image, sourceIndex, attempt]);
+  const handleError = () => {
+    if (sourceIdx + 1 < sources.length) {
+      setSourceIdx(sourceIdx + 1);
+    } else {
+      setHasError(true);
+    }
+  };
 
   return (
-    <RepoCard>
-      <PreviewFrame href={project.url} rel="noreferrer" target="_blank">
-        {failed ? (
-          <PreviewFallback>{hostOf(project.url)}</PreviewFallback>
-        ) : (
-          <Preview
-            src={src}
+    <ProjectCard>
+      <PreviewWrap>
+        {!hasError ? (
+          <PreviewImage
+            src={sources[sourceIdx]}
             alt={`Prévia de ${project.name}`}
             loading="lazy"
-            onError={() => {
-              setSourceIndex((i) => i + 1);
-              setAttempt(0);
-            }}
+            onError={handleError}
           />
+        ) : (
+          <FallbackPreview>
+            <Globe size={32} color="#7C3AED" />
+            <span>{project.name}</span>
+          </FallbackPreview>
         )}
-      </PreviewFrame>
-      <ProjectBody>
-        <RepoTitle>{project.name}</RepoTitle>
-        <RepoMeta>{hostOf(project.url)}</RepoMeta>
-        <RepoDesc>{project.description}</RepoDesc>
+        <LiveBadge>
+          <i />
+          <span>Vercel / Live</span>
+        </LiveBadge>
+      </PreviewWrap>
+
+      <CardBody>
+        <CardTitle>{project.name}</CardTitle>
+        <CardDescription>{project.description}</CardDescription>
+
         {project.tags && project.tags.length > 0 && (
-          <BadgeRow>
+          <TagRow>
             {project.tags.map((tag) => (
-              <Badge key={tag}>{tag}</Badge>
+              <TagChip key={tag}>{tag}</TagChip>
             ))}
-          </BadgeRow>
+          </TagRow>
         )}
-        <LinkRow>
-          <RepoLink href={project.url} rel="noreferrer" target="_blank">
-            Acessar site
-          </RepoLink>
-        </LinkRow>
-      </ProjectBody>
-    </RepoCard>
+
+        <ActionLink
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Visualizar Site</span>
+          <ExternalLink size={15} />
+        </ActionLink>
+      </CardBody>
+    </ProjectCard>
   );
 };
 
-const Projects = () => (
-  <PageShell>
-    <ContentFrame>
-      <TopBar>
-        <BackLink as={Link} to="/" state={{ from: "/projects" }}>Voltar</BackLink>
-      </TopBar>
+const Projects = () => {
+  const [filter, setFilter] = useState("all");
 
-      <HeaderBlock>
-        <Eyebrow>Projetos</Eyebrow>
-        <Title>Projetos</Title>
-        <Description>
-          Sites publicados que demonstram as principais competências e criações. Clique na prévia para abrir o projeto.
-        </Description>
-        <HeroPanel>
-          Cada card leva ao site no ar. Para projetos privados e detalhes completos, entre em contato.
-        </HeroPanel>
-      </HeaderBlock>
+  const filteredProjects = projects.filter((p) => {
+    if (filter === "all") return true;
+    if (filter === "featured") {
+      return (
+        p.name.includes("King") ||
+        p.name.includes("GhostPress") ||
+        p.name.includes("Homem Aranha") ||
+        p.name.includes("Gymnasium") ||
+        p.name.includes("Imparáveis")
+      );
+    }
+    if (filter === "commercial") {
+      return (
+        p.name.includes("construtora") ||
+        p.name.includes("pets") ||
+        p.name.includes("Pizzaria") ||
+        p.name.includes("Barbearia") ||
+        p.name.includes("King") ||
+        p.name.includes("Mais Móveis")
+      );
+    }
+    return true;
+  });
 
-      {projects.length === 0 ? (
-        <StatusCard>
-          <RepoTitle>► Nenhum projeto cadastrado</RepoTitle>
-          <RepoDesc>Adicione seus sites em src/data/projects.ts para exibi-los aqui.</RepoDesc>
-        </StatusCard>
-      ) : (
-        <>
-          <SectionLabel>// Sites publicados</SectionLabel>
-          <RepoGrid>
-            {projects.map((project) => (
-              <ProjectCard key={project.url} project={project} />
-            ))}
-          </RepoGrid>
-        </>
-      )}
-    </ContentFrame>
-  </PageShell>
-);
+  return (
+    <InternalLayout>
+      <Container>
+        <HeaderHero>
+          <Badge>
+            <FolderGit2 size={14} />
+            <span>Portfólio de Soluções</span>
+          </Badge>
+          <PageTitle>Projetos & Aplicações</PageTitle>
+          <PageSubtitle>
+            Aplicações reais, landing pages de alta conversão, portfólios autorais
+            e ferramentas desenvolvidas com React, TypeScript e as melhores práticas web.
+          </PageSubtitle>
+        </HeaderHero>
+
+        <FilterBar>
+          <FilterButton
+            $active={filter === "all"}
+            onClick={() => setFilter("all")}
+          >
+            Todos os Projetos ({projects.length})
+          </FilterButton>
+          <FilterButton
+            $active={filter === "featured"}
+            onClick={() => setFilter("featured")}
+          >
+            Destaques
+          </FilterButton>
+          <FilterButton
+            $active={filter === "commercial"}
+            onClick={() => setFilter("commercial")}
+          >
+            Negócios & Serviços
+          </FilterButton>
+        </FilterBar>
+
+        <ProjectsGrid>
+          {filteredProjects.map((project, idx) => (
+            <ProjectCardItem key={`${project.name}-${idx}`} project={project} />
+          ))}
+        </ProjectsGrid>
+      </Container>
+    </InternalLayout>
+  );
+};
 
 export default Projects;
